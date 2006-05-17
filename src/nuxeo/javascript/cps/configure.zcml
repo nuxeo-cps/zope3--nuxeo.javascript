@@ -1,0 +1,10 @@
+<configure
+    xmlns="http://namespaces.zope.org/browser">
+
+  <!-- CPS Javascript library -->
+
+  <resource
+      name="cps.js" file="src/cps.js"
+  />
+
+</configure>

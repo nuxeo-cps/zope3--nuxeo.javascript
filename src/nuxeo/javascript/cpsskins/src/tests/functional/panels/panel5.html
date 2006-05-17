@@ -1,0 +1,59 @@
+
+<div class="panel5">
+
+  <h2>Panel 5</h2>
+
+  <div class="selector">
+    <a href="javascript:CPSSkins.getControllerById('controller2').switchTo('perspective1')">
+  Perspective 1</a>
+    <a href="javascript:CPSSkins.getControllerById('controller2').switchTo('perspective2')">
+  Perspective 2</a>
+  </div>
+
+
+  <ins class="controller">
+  {"id": "controller2",
+   "type": "perspective selector",
+   "initial": "perspective2"
+  }
+  </ins>
+
+  <ins class="model">
+  {"id": "panel5_1",
+   "data": {
+     "url": "panel5_1.html"
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "panel5_2",
+   "data": {
+     "url": "panel5_2.html"
+  }}
+  </ins>
+
+  <div class="frame">
+    <ins class="view">
+    {"id": "panel5_1",
+     "widget": {
+     "type": "panel"
+    },
+    "model": "panel5_1",
+    "perspectives": ["perspective1"],
+    "controllers": ["controller2"]
+    }
+    </ins>
+
+    <ins class="view">
+    {"id": "panel5_2",
+     "widget": {
+     "type": "panel"
+     },
+     "model": "panel5_2",
+     "perspectives": ["perspective2"],
+     "controllers": ["controller2"]
+     }
+    </ins>
+  </div>
+
+</div>

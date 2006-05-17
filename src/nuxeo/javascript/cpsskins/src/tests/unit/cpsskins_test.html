@@ -1,0 +1,593 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cpsskins=http://namespaces.zope.org/cpsskins">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="../../json.js" type="text/javascript"></script>
+  <script src="../../prototype.js" type="text/javascript"></script>
+  <script src="../../cpsskins.js" type="text/javascript"></script>
+  <script src="../unittest.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="../test.css" type="text/css" />
+  <link rel="stylesheet" href="../../cpsskins.css" type="text/css" />
+</head>
+<body>
+
+<h1>CPSSkins Unit test file</h1>
+
+<p>
+  Tests for the CPSSkins AJAX toolkit.
+</p>
+
+<!-- Log output -->
+<div id="testlog"> </div>
+
+<ins class="controller">
+{"id": "c1",
+ "type": "perspective selector"
+}
+</ins>
+
+<ins class="controller">
+{"id": "c2",
+ "type": "perspective selector"
+}
+</ins>
+
+<!-- Testing area -->
+<div id="e0">
+  <div>
+
+    <div id="e1"></div>
+    <div>
+
+      <ins class="model">
+      {"id": "m_1",
+       "data":  {
+         "a":"1","b":"2","c":true
+      }}
+      </ins>
+
+      <div id="e2"></div>
+      <div id="e3"></div>
+      <div id="e4">
+
+        <ins class="model">
+        {"id": "m_2",
+         "data": {
+           "a":"1"
+        }}
+        </ins>
+        <div></div>
+
+        <div id="e5"></div>
+      </div>
+    </div>
+    <div></div>
+
+    <ins class="model">
+    {"id": "m_3",
+     "data": {
+      "a":["1","2","3"],
+      "b":{"c":1,"d":2},
+      "c":[[1],[2],[3]]
+    }}
+    </ins>
+    <div id="e6"></div>
+
+  </div>
+
+  <ins class="model">
+  {"id": "p1",
+   "data": {
+     "url": "p1.html"
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "p2",
+   "data": {
+     "url": "p2.html"
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "p3",
+   "data": {
+     "url": "p3.html"
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "p1_2",
+   "data": {
+     "url": "p1_2.html"
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "p2_3",
+   "data": {
+     "url": "p2_3.html"
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "p2_3_1",
+   "data": {
+     "url": "p2_3_1.html"
+  }}
+  </ins>
+
+  <!-- panels -->
+  <ins class="view">
+  {"id": "v1",
+   "widget": {
+     "type": "panel"
+   },
+   "model": "p1",
+   "perspectives": ["1"],
+   "controllers": ["c1"]
+  }
+  </ins>
+
+  <ins class="view">
+  {"id": "v2",
+   "widget": {
+     "type": "panel"
+   },
+   "model": "p2",
+   "perspectives": ["1", "2"],
+   "controllers": ["c1"]
+  }
+  </ins>
+
+  <ins class="view">
+  {"id": "v3",
+   "widget": {
+     "type": "panel"
+   },
+   "model": "p3",
+   "perspectives": ["3"],
+   "controllers": ["c1"]
+  }
+  </ins>
+
+  <ins class="view">
+  {"id": "v4",
+   "widget": {
+     "type": "panel"
+   },
+   "model": "p1_2",
+   "perspectives": ["1"],
+   "controllers": ["c2"]
+  }
+  </ins>
+
+  <ins class="view">
+  {"id": "v5",
+   "widget": {
+     "type": "panel"
+   },
+   "model": "p2_3",
+   "perspectives": ["2"],
+   "controllers": ["c2"]
+  }
+  </ins>
+
+  <ins class="view">
+  {"id": "v6",
+   "widget": {
+     "type": "panel"
+   },
+   "model": "p2_3_1",
+   "perspectives": ["3"],
+   "controllers": ["c1", "c2"]
+  }
+  </ins>
+
+  <!-- unified storages -->
+  <ins class="model">
+  {"id": "m1",
+   "data": {"a": 1}
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "m2",
+   "data": {"b": 2}
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "c1",
+   "data": {"a": 0, "b": 0},
+   "storage": {
+     "type": "unified",
+     "units": ["m1", "m2"]
+  }}
+  </ins>
+
+</div>
+
+<!-- Tests follow -->
+<script type="text/javascript">
+// <![CDATA[
+
+  var e0 = $('e0');
+  var e1 = $('e1');
+  var e2 = $('e2');
+  var e3 = $('e3');
+  var e4 = $('e4');
+  var e5 = $('e5');
+  var e6 = $('e6');
+
+  function isVisible(element) {
+    var element = $(element);
+    if (!element) { return false };
+    return element.style.display != 'none';
+  }
+
+  var handler = function() {}
+
+  var inspect = Test.Unit.inspect;
+
+  new Test.Unit.Runner({
+
+    setup: function() {
+    },
+
+    /* CPSSkins */
+
+    testSetCreate: function() { with(this) {
+      var s = new CPSSkins.Set();
+      assertEqual(inspect([]), inspect(s.entries()));
+      var s = new CPSSkins.Set("1a");
+      assertEqual(inspect(["1a"]), inspect(s.entries()));
+      var s = new CPSSkins.Set(["1", "2", "3a"]);
+      assertEqual(inspect(["1", "2", "3a"]), inspect(s.entries()));
+    }},
+
+    testSetAdd: function() { with(this) {
+      var s = new CPSSkins.Set(["1", "2"]);
+      s.add("4a");
+      assertEqual(inspect(["1", "2", "4a"]), inspect(s.entries()));
+      s.add("4a");
+      assertEqual(inspect(["1", "2", "4a"]), inspect(s.entries()));
+      s.add("1");
+      assertEqual(inspect(["1", "2", "4a"]), inspect(s.entries()));
+      s.add(["5a", "6a"]);
+      assertEqual(inspect(["1", "2", "4a", "5a", "6a"]), inspect(s.entries()));
+    }},
+
+    testSetRemove: function() { with(this) {
+      var s = new CPSSkins.Set(["1", "2", "4a", "5"]);
+      s.remove("4a");
+      assertEqual(inspect(["1", "2", "5"]), inspect(s.entries()));
+      s.remove("4a");
+      assertEqual(inspect(["1", "2", "5"]), inspect(s.entries()));
+      s.remove("2");
+      assertEqual(inspect(["1", "5"]), inspect(s.entries()));
+      s.remove(["5", "6a"]);
+      assertEqual(inspect(["1"]), inspect(s.entries()));
+    }},
+
+    testSetContains: function() { with(this) {
+      var s = new CPSSkins.Set(["1", "2a", "4", "5"]);
+      assert(s.contains("1"));
+      assert(s.contains("2a"));
+      assert(!s.contains("3"));
+      assert(s.contains("4"));
+      assert(s.contains("5"));
+      assert(!s.contains("6"));
+    }},
+
+    /* MVC */
+    testGetModelById: function() { with(this) {
+      assertEqual("m_1", CPSSkins.getModelById("m_1").def.id);
+      assertEqual("m_2", CPSSkins.getModelById("m_2").def.id);
+      assertEqual("m_3", CPSSkins.getModelById("m_3").def.id);
+      assertEqual(null, CPSSkins.getModelById("m4"));
+    }},
+
+    testGetViewById: function() { with(this) {
+      assertEqual("v1", CPSSkins.getViewById("v1").def.id);
+      assertEqual("v2", CPSSkins.getViewById("v2").def.id);
+      assertEqual("v3", CPSSkins.getViewById("v3").def.id);
+      assertEqual(null, CPSSkins.getViewById("v10"));
+    }},
+
+    testGetControllerById: function() { with(this) {
+      assertEqual("c1", CPSSkins.getControllerById("c1").def.id);
+      assertEqual("c2", CPSSkins.getControllerById("c2").def.id);
+      assertEqual(null, CPSSkins.getControllerById("c3"));
+    }},
+
+    testAddActions: function() { with(this) {
+      assertEqual(inspect({}), inspect(CPSSkins._action_handlers))
+      CPSSkins.addActions({'handler': handler});
+      assertEqual(inspect({'handler': handler}), inspect(CPSSkins._action_handlers))
+    }},
+
+    /* Identifiable */
+    testIsIdentifiable: function() { with(this) {
+      assertEqual(true, CPSSkins.Identifiable.isIdentifiable(e1));
+      assertEqual(false, CPSSkins.Identifiable.isIdentifiable(e1.parentNode));
+    }},
+
+    testGetIdentifiable: function() { with(this) {
+      assertEqual(e1, CPSSkins.Identifiable.getIdentifiable(e1));
+      assertEqual(e2, CPSSkins.Identifiable.getIdentifiable(e2));
+      assertEqual(e0, CPSSkins.Identifiable.getIdentifiable(e1.parentNode));
+    }},
+
+    testGetParent: function() { with(this) {
+      assertEqual(e0, CPSSkins.Identifiable.getParent(e1));
+      assertEqual(e0, CPSSkins.Identifiable.getParent(e2));
+      assertEqual(e0, CPSSkins.Identifiable.getParent(e3));
+      assertEqual(e0, CPSSkins.Identifiable.getParent(e4));
+      assertEqual(e4, CPSSkins.Identifiable.getParent(e5));
+      assertEqual(e0, CPSSkins.Identifiable.getParent(e6));
+    }},
+
+    /* CPSSkins.Canvas */
+
+    testCreateNode: function() { with(this) {
+      var n1 = CPSSkins.Canvas.createNode({
+        tag: "div"
+      });
+      assertEqual("div", n1.tagName.toLowerCase());
+
+      var n2 = CPSSkins.Canvas.createNode({
+        tag: "a",
+        attributes: {
+          "href": "http://someurl.html/"
+        }
+      });
+      assertEqual("a", n2.tagName.toLowerCase());
+      assertEqual("http://someurl.html/", n2.getAttribute("href"));
+
+      var n3 = CPSSkins.Canvas.createNode({
+        tag: "span",
+        classes: "cssClass",
+        style: {position: "absolute", display: "none"}
+      });
+      assertEqual("span", n3.tagName.toLowerCase());
+      assertEqual("absolute", n3.style.position);
+      assertEqual("none", n3.style.display);
+      assert(Element.hasClassName(n3, "cssClass"));
+
+      var n4 = CPSSkins.Canvas.createNode({
+        tag: "p",
+        text: "Some text"
+      });
+      assertEqual("Some text", n4.innerHTML);
+    }},
+
+    testGetModelNode: function() { with(this) {
+      assertEqual(null, CPSSkins.Canvas._getModelNode(e0));
+      assertEqual(null, CPSSkins.Canvas._getModelNode(e1));
+      assertNotEqual(null, CPSSkins.Canvas._getModelNode(e2));
+      assertEqual(null, CPSSkins.Canvas._getModelNode(e3));
+      assertEqual(null, CPSSkins.Canvas._getModelNode(e4));
+      assertEqual(null, CPSSkins.Canvas._getModelNode(e5));
+      assertNotEqual(null, CPSSkins.Canvas._getModelNode(e6));
+    }},
+
+    testGetModel: function() { with(this) {
+      assertEqual(null, CPSSkins.Canvas.getModel(e0));
+      assertEqual(null, CPSSkins.Canvas.getModel(e1));
+      assertNotEqual(null, CPSSkins.Canvas.getModel(e2));
+      assertEqual(null, CPSSkins.Canvas.getModel(e3));
+      assertEqual(null, CPSSkins.Canvas.getModel(e4));
+      assertEqual(null, CPSSkins.Canvas.getModel(e5));
+      assertNotEqual(null, CPSSkins.Canvas.getModel(e6));
+    }},
+
+    testGetData: function() { with(this) {
+      var model_e2 = CPSSkins.Canvas.getModel(e2);
+      var model_e6 = CPSSkins.Canvas.getModel(e6);
+
+      assertEqual(inspect({a:"1", b:"2", c: true}),
+                  inspect(model_e2.getData()));
+
+      assertEqual(
+        inspect({"a":["1","2","3"],"b":{"c":1,"d":2},"c":[[1],[2],[3]]}),
+        inspect(model_e6.getData()));
+    }},
+
+    testSetData: function() { with(this) {
+      var model_e2 = CPSSkins.Canvas.getModel(e2);
+
+      assertEqual(inspect({"a": "string", "b": "string", "c": "boolean"}),
+                  inspect(model_e2.schema));
+
+      // setData cannot set undefined fields
+      model_e2.setData({"a": "2", "new1": true});
+      assertEqual(inspect({"a": "2", "b": "2", "c": true}), inspect(model_e2.getData()));
+
+      // setData cannot change field types
+      model_e2.setData({"a": 5});
+      assertEqual(inspect({"a": "2", "b": "2", "c": true}), inspect(model_e2.getData()));
+
+      model_e2.setData({"c": false});
+      assertEqual(inspect({"a": "2", "b": "2", "c": false}),
+                  inspect(model_e2.getData()));
+
+      model_e2.setData({"a": "3", "b": true});
+      assertEqual(inspect({"a": "3", "b": "2", "c": false}),
+                  inspect(model_e2.getData()));
+    }},
+
+    testUpdateData: function() { with(this) {
+      var model_e2 = CPSSkins.Canvas.getModel(e2);
+
+      model_e2.setData({"a": "1", "b": "2", "c": true});
+      assertEqual(inspect({"a": "1", "b": "2", "c": true}),
+                  inspect(model_e2.getData()));
+
+      model_e2.updateData({"a": "2", "b": 4, "c":true, "d": 1});
+      assertEqual(inspect({"a": "2", "b": "2", "c":true}),
+                  inspect(model_e2.getData()));
+    }},
+
+    testUnifiedStoragesGetData: function() { with(this) {
+      var model_c1 = CPSSkins.getModelById('c1');
+
+      assertEqual(inspect({"a": 1,"b": 2}), inspect(model_c1.getData()));
+    }},
+
+    testUnifiedStoragesSetData: function() { with(this) {
+      var model_m1 = CPSSkins.getModelById('m1');
+      var model_m2 = CPSSkins.getModelById('m2');
+      var model_c1 = CPSSkins.getModelById('c1');
+
+      assertEqual(inspect({"a": 1, "b": 2}), inspect(model_c1.getData()));
+
+      assertEqual(inspect({'a': 'number', 'b': 'number'}), 
+                  inspect(model_c1.schema));
+
+      assertEqual(inspect({'a': 'number'}), inspect(model_m1.schema));
+
+      assertEqual(inspect({'b': 'number'}), inspect(model_m2.schema));
+
+      model_c1.setData({"a": 3, "b": 1});
+      assertEqual(inspect({"a": 3, "b": 1}), inspect(model_c1.getData()));
+      assertEqual(inspect({"a": 3}), inspect(model_m1.getData()));
+      assertEqual(inspect({"b": 1}), inspect(model_m2.getData()));
+
+      model_c1.setData({"a": 4});
+      assertEqual(inspect({"a": 4, "b": 1}), inspect(model_c1.getData()));
+      assertEqual(inspect({"a": 4}), inspect(model_m1.getData()));
+      assertEqual(inspect({"b": 1}), inspect(model_m2.getData()));
+
+    }},
+
+    /* Events */
+
+    testSubscribe: function() { with(this) {
+      var info = {};
+      var handler1 = function(event) {
+        info = {'subscriber': event.subscriber.id,
+                'publisher': event.publisher.id};
+      }
+
+      var obj1 = new Object({'id': 'object1'});
+      var context1 = new Object({'id': 'context1'});
+      var context2 = new Object({'id': 'context2'});
+
+      CPSSkins.registerEventHandler('event1', obj1, handler1);
+      CPSSkins.subscribe('event1', {'subscriber': obj1, 'publisher': context1});
+
+      assertEqual(inspect({}), inspect(info));
+
+      var info = {};
+      CPSSkins.notify('event2', {'publisher': context1});
+      assertEqual(inspect({}), inspect(info));
+
+      var info = {};
+      CPSSkins.notify('event1', {'publisher': context1});
+      assertEqual(inspect({'subscriber': 'object1', 'publisher': 'context1'}),
+                  inspect(info));
+
+      var info = {};
+      CPSSkins.notify('event1', {'publisher': context2});
+      assertEqual(inspect({}), inspect(info));
+
+      CPSSkins.unsubscribe('event1', {'subscriber': obj1,
+                                      'publisher': context1});
+
+      var info = {};
+      CPSSkins.notify('event1', {'publisher': context1});
+      assertEqual(inspect({}), inspect(info));
+
+    }},
+
+    /* Perspectives */
+
+    testSwitchPerspectives: function() { with(this) {
+
+      assert(!isVisible("p1"));
+      assert(!isVisible("p1_2"));
+      assert(!isVisible("p2_3"));
+      assert(!isVisible("p2_3_1"));
+      assert(!isVisible("p2"));
+      assert(!isVisible("p3"));
+      assert(!isVisible("p4"));
+
+      CPSSkins.getControllerById("c1").switchTo("1");
+      assert(isVisible("p1"));
+      assert(isVisible("p2"));
+      assert(!isVisible("p1_2"));
+      assert(!isVisible("p2_3"));
+      assert(!isVisible("p2_3_1"));
+      assert(!isVisible("p3"));
+      assert(!isVisible("p4"));
+
+      CPSSkins.getControllerById("c1").switchTo("2");
+      assert(isVisible("p2"));
+      assert(!isVisible("p1"));
+      assert(!isVisible("p1_2"));
+      assert(!isVisible("p2_3"));
+      assert(!isVisible("p2_3_1"));
+      assert(!isVisible("p3"));
+      assert(!isVisible("p4"));
+
+      CPSSkins.getControllerById("c1").switchTo("3");
+      assert(isVisible("p3"));
+      assert(!isVisible("p1"));
+      assert(!isVisible("p1_2"));
+      assert(!isVisible("p2_3"));
+      assert(!isVisible("p2_3_1"));
+      assert(!isVisible("p2"));
+      assert(!isVisible("p4"));
+
+      CPSSkins.getControllerById("c1").switchTo("4");
+      assert(isVisible("p4"));
+      assert(!isVisible("p1"));
+      assert(!isVisible("p1_2"));
+      assert(!isVisible("p2_3"));
+      assert(!isVisible("p2_3_1"));
+      assert(!isVisible("p2"));
+      assert(!isVisible("p3"));
+
+      CPSSkins.getControllerById("c2").switchTo("1");
+      assert(isVisible("p1"));
+      assert(isVisible("p2"));
+      assert(isVisible("p1_2"));
+      assert(!isVisible("p2_3"));
+      assert(!isVisible("p2_3_1"));
+      assert(!isVisible("p3"));
+      assert(!isVisible("p4"));
+
+      CPSSkins.getControllerById("c2").switchTo("2");
+      assert(isVisible("p2"));
+      assert(isVisible("p2_3"));
+      assert(!isVisible("p1"));
+      assert(!isVisible("p1_2"));
+      assert(!isVisible("p2_3_1"));
+      assert(!isVisible("p3"));
+      assert(!isVisible("p4"));
+
+      CPSSkins.getControllerById("c2").switchTo("3");
+      assert(isVisible("p2"));
+      assert(isVisible("p2_3"));
+      assert(isVisible("p2_3_1"));
+      assert(!isVisible("p1"));
+      assert(!isVisible("p1_2"));
+      assert(!isVisible("p3"));
+      assert(!isVisible("p4"));
+
+    }}
+
+  });
+
+// ]]>
+</script>
+
+<div id="message"></div>
+</body>
+</html>

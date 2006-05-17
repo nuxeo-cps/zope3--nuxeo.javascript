@@ -1,0 +1,14 @@
+
+.panel1 {
+  background-color: #fd8;
+  padding: 0.8em;
+  color: red;
+  margin: 0.2em;
+  border: 1px solid #f99;
+}
+
+.panel1 h2 {
+  color: #000;
+  font: 20px Arial, sans-serif;
+}
+

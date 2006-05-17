@@ -1,0 +1,10 @@
+<configure
+    xmlns="http://namespaces.zope.org/browser">
+
+  <!-- client-side TAL interpreter -->
+
+  <resource
+      name="ctal.js" file="src/ctal.js"
+  />
+
+</configure>

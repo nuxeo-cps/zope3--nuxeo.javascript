@@ -1,0 +1,35 @@
+
+.popup {
+  padding: 2em;
+  position: absolute;
+  top: 2em;
+  left: 2em;
+  right: 2em;
+  bottom: 2em;
+  border-top: 1px solid #000;
+  border-left: 1px solid #000;
+  border-right: 2px solid #000;
+  border-bottom: 2px solid #000;
+  background-color: #fff;
+  -moz-border-radius: 10px;
+}
+
+.popup h1 {
+  border-bottom: 1px solid gray;
+}
+
+.popup .close {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+}
+
+.popup .button {
+  border: 1px solid gray;
+  padding: 0.2em 1em;
+  background-color: white;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 0.5em;
+  color: #000;
+}

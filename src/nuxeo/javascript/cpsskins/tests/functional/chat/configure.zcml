@@ -1,0 +1,50 @@
+<configure
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+  <browser:resource
+      name="chat.css" file="chat.css"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest" />
+
+  <browser:page
+      for="*"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      name="cpsskins_chat.html"
+      permission="zope.Public"
+      template="cpsskins_chat.pt"
+  />
+
+  <browser:page
+      for="*"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      name="chatbox.html"
+      permission="zope.Public"
+      template="chatbox.pt"
+  />
+
+  <browser:page
+      for="*"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      name="chatinput.html"
+      permission="zope.Public"
+      template="chatinput.pt"
+  />
+
+  <browser:pages
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      for="*"
+      class=".browser.Views"
+      permission="zope.Public">
+
+    <browser:page
+        name="getData"
+        attribute="getData"
+    />
+
+    <browser:page
+        name="setData"
+        attribute="setData"
+    />
+
+  </browser:pages>
+
+</configure>

@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/browser"
+    xmlns:zope="http://namespaces.zope.org/zope">
+
+  <resource
+      name="cpsskins.js" file="src/cpsskins.js"
+  />
+
+  <resource
+      name="cpsskins.css" file="src/cpsskins.css"
+  />
+
+
+</configure>

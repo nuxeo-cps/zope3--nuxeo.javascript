@@ -1,0 +1,119 @@
+
+div.warningMessage {
+  border: 2px solid red;
+  padding: 0.5em;
+  display: block;
+  background-color: #ffc;
+  font: bold 13px sans-serif;
+  color: #000;
+  position: absolute;
+}
+
+div.warningMessage pre {
+  font-weight: normal;
+  overflow: auto;
+}
+
+/* tooltip */
+
+.tooltip {
+  font: 13px verdana, arial, sans-serif;
+  padding: 0.7em;
+  background-color: #ffc;
+  border-color: #666;
+  border-width: 1px 2px 2px 1px;
+  border-style: solid;
+  width: 200px;
+  z-index: 1000;
+}
+
+
+/* Contextual menu */
+
+.contextMenu {
+  font: 11px Verdana, Arial, Helvetica, sans-serif;
+  border-width: 1px 2px 2px 1px;
+  border-style: solid;
+  border-color: #666;
+  background-color: #eeeeec;
+  color: #000;
+}
+
+.contextMenu a {
+  cursor: default;
+  text-decoration: none;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: 6px center;
+  color: #000;
+  padding: 4px 15px 4px 5px;
+  width: 116px;
+}
+
+.contextMenu a img {
+  border: none;
+  padding-right: 5px;
+  vertical-align: bottom;
+}
+
+.contextMenu .separator {
+  border-bottom: 1px solid #ccc;
+  margin: 3px;
+}
+
+.contextMenu a.disabled {
+  color: #ccc;
+}
+
+.contextMenu a.disabled:hover {
+  background-color: #eeeeec;
+  color: #ccc;
+}
+
+.contextMenu a:hover {
+  background-color: #3465a4;
+  color: #fff;
+}
+
+.contextMenu a.submenuitem {
+  background-image: url(arrow.png);
+  background-repeat: no-repeat;
+  background-position: 95% center;
+}
+
+.contextMenu .submenu {
+  background-color: #eeeeec;
+  border-width: 1px 2px 2px 1px;
+  border-style: solid;
+  border-color: #333;
+  margin-top: -2px;
+  width: 100%;
+}
+
+/* Contextual actions */
+
+.contextActions {
+  font: 11px Verdana, Arial, Helvetica, sans-serif;
+  color: #000;
+  background-color: #fff9cf;
+  border: 1px solid #dd9;
+}
+
+.contextActions a {
+  cursor: default;
+  text-decoration: none;
+  vertical-align: top;
+  background-repeat: no-repeat;
+  background-position: 6px center;
+  color: #000;
+  display: block;
+  float: left;
+  padding: 5px 10px 5px 4px;
+}
+
+.contextActions a img {
+  border: none;
+  padding-right: 5px;
+  vertical-align: bottom;
+}
+

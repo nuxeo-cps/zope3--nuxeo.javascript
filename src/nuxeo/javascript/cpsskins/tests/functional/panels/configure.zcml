@@ -1,0 +1,34 @@
+<configure
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+  <browser:pages
+      for="*"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      permission="zope.Public">
+
+    <page
+      name="cpsskins_panels.html"
+      template="cpsskins_panels.pt"
+    />
+
+    <page
+      name="panels-form.html"
+      template="form.pt"
+    />
+
+  </browser:pages>
+
+  <browser:pages
+      for="*"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      permission="zope.Public"
+      class=".views.FormAction">
+
+    <page
+        name="doSomething"
+        attribute="doSomething"
+    />
+
+  </browser:pages>
+
+</configure>

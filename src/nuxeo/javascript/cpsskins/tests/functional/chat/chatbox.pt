@@ -1,0 +1,7 @@
+<div class="chatbox">
+  <div class="message" ctal:repeat="message messages">
+     [<span ctal:content="message/date">00:00:00</span>]
+     <strong ctal:content="message/user">User</strong>:
+     <span ctal:content="message/text">Text</span>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+==================
+Installation Notes
+==================
+
+To install nuxeo.javascript, you need a Zope 2.9.2+ instance
+or a Zope 3.2.x one.
+
+Setting up in Zope 2
+====================
+
+In order to initialize Zope 3 packages, you need to set up Zope3-style instance
+configuration files in your Zope 2 instance.
+
+Copy the `site.zcml` file contained in `ZOPE_INSTALL/lib/python/Products/Five/skel/`
+into `ZOPE_INSTANCE/etc`.
+
+Create a subdirectory in `ZOPE_INSTANCE/etc` called `package-includes`
+
+Then, copy `nuxeo.javascript-configure.zcml` into the
+`ZOPE_INSTANCE/etc/package-includes` folder.
+
+Setting up in Zope 3
+====================
+
+Copy `nuxeo.javascript-configure.zcml` into the
+`ZOPE_INSTANCE/etc/package-includes` folder.
+
+Adding the product
+==================
+
+The product is added in `ZOPE_INSTANCE/lib/python`, copy `src/nuxeo` into the python
+folder.
+

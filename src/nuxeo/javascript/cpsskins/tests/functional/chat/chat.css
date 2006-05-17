@@ -1,0 +1,55 @@
+
+div.chatbox {
+  padding: 0.5em;
+  border: 1px solid #999;
+  background-color: #cd9;
+}
+
+form {
+  border: 1px solid #ccc;
+  background-color: #eee;
+  padding: 0.7em;
+  margin: 1em 0;
+}
+
+label {
+  font: 14px arial, sans-serif;
+}
+
+input {
+  border: 1px solid #999;
+  padding: 0.2em;
+  margin: 0 1em 0 0;
+  font: 14px arial, sans-serif;
+}
+
+input:focus {
+  background-color: #efc;
+}
+
+button {
+  background-color: #efc;
+  border: 1px solid #999;
+  padding: 0.2em;
+  margin: 0 1em 0 0;
+  font: 15px arial, sans-serif;
+}
+
+div.message {
+  border: 1px solid #999;
+  background-color: #efc;
+  padding: 0.5em;
+  margin: 0.2em;
+  font: 13px arial, sans-serif;
+}
+
+div.status {
+  border: 1px solid #000;
+  background-color: #fc0;
+  padding: 0.5em;
+  margin: 0.3em 0;
+  margin-bottom: 1em;
+  position: absolute;
+  top: 40px;
+  right: 20px;
+}

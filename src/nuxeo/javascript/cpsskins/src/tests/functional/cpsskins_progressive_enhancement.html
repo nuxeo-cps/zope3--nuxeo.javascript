@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="../prototype.js" type="text/javascript"></script>
+  <script src="../json.js" type="text/javascript"></script>
+  <script src="../ctal.js" type="text/javascript"></script>
+  <script src="../../cpsskins.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="../../cpsskins.css" type="text/css" />
+
+  <style stype="text/css">
+  .standard {
+    background-color: #ccc;
+    padding: 1em;
+    width: 200px;
+    border: 1px solid #999;
+  }
+  .ajax {
+    background-color: #fc0;
+    padding: 1em;
+    width: 200px;
+    border: 1px solid #999;
+  }
+  </style>
+
+</head>
+<body>
+
+  <h1>CPSSkins: progressive enhancement</h1>
+
+  <p>Standard HTML widgets located on the page can be replaced by <strong>
+     Ajax-enhanced</strong> widgets.</p>
+
+  <p>If the Ajax library is not supported by the browser or if javascript is
+     disabled, the original HTML widgets will be used for compatibility reasons.
+  </p>
+
+  <p>This is the opposite of <strong>graceful degradation</strong>.</p>
+
+  <div id="htmlwidget" class="standard">
+    Standard HTML widget
+  </div>
+
+  <ins class="model">
+  {"id": "dummy",
+   "data": ""
+  }}
+  </ins>
+
+  <ins class="view">
+  {"id": "some-view",
+   "widget": {
+     "template": "ajax_widget_template.pt",
+     "replace": "htmlwidget"
+   },
+   "model": "dummy",
+   "render_effect": {
+     "transition": "fadein"
+   }}
+  </ins>
+
+</body>
+</html>

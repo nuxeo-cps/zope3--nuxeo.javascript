@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="../../prototype.js" type="text/javascript"></script>
+  <script src="../../json.js" type="text/javascript"></script>
+  <script src="../../../cpsskins.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="../../../cpsskins.css" type="text/css" />
+
+  <style type="text/css">
+    .panel {
+      padding: 2em;
+      margin: 2px;
+      border: 1px solid #999;
+    }
+    .selector a {
+      font: 12px Verdana, Arial;
+      padding-right: 1.5em;
+      text-decoration: none;
+      color: #069;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>CPSSkins panels</h1>
+
+  <div id="msg"></div>
+
+  <div class="selector">
+  <a href="javascript:CPSSkins.getControllerById('controller1').switchTo('perspective1')">
+  Perspective 1</a>
+  <a href="javascript:CPSSkins.getControllerById('controller1').switchTo('perspective2')">
+  Perspective 2</a>
+  <a href="javascript:CPSSkins.getControllerById('controller1').switchTo('perspective3')">
+  Perspective 3</a>
+  <a href="javascript:CPSSkins.getControllerById('controller1').switchTo('perspective4')">
+  Perspective 4</a>
+
+
+  </div>
+
+  <!-- perspective selectors -->
+  <ins class="controller">
+  {"id": "controller1",
+   "type": "perspective selector",
+   "initial": "perspective1"
+  }
+  </ins>
+
+
+  <table style="width:100%">
+    <tr style="vertical-align: top">
+      <td colspan="3">
+
+        <ins class="model">
+        {"id": "panel1",
+         "data": {
+           "url": "panel1.html",
+           "css": "panel1.css"
+        }}
+        </ins>
+
+        <ins class="model">
+        {"id": "panel2",
+         "data": {
+           "url": "panel2.html",
+           "css": "panel2.css"
+        }}
+        </ins>
+
+        <ins class="model">
+        {"id": "panel3",
+         "data": {
+           "url": "panel3.html",
+           "css": "panel3.css"
+        }}
+        </ins>
+
+        <ins class="model">
+        {"id": "panel4",
+         "data": {
+           "url": "panel4.html",
+           "css": "panel4.css"
+        }}
+        </ins>
+
+        <ins class="model">
+        {"id": "panel5",
+         "data": {
+           "url": "panel5.html",
+           "css": "panel5.css"
+        }}
+        </ins>
+
+        <ins class="view">
+        {"id": "panel1",
+         "widget": {
+           "type": "panel"
+         },
+         "model": "panel1",
+         "perspectives": ["perspective2", "perspective3"],
+         "controllers": ["controller1"]
+        }
+        </ins>
+
+        <ins class="view">
+        {"id": "panel2",
+         "widget": {
+           "type": "panel"
+         },
+         "model": "panel2",
+         "perspectives": ["perspective1"],
+         "controllers": ["controller1"]
+        }
+        </ins>
+
+      </td>
+    </tr>
+
+    <tr style="vertical-align: top">
+      <td style="width: 20%">
+
+        <ins class="view">
+        {"id": "panel2b",
+         "widget": {
+           "type": "panel"
+         },
+         "model": "panel2",
+         "perspectives": ["perspective2"],
+         "controllers": ["controller1"]
+        }
+        </ins>
+
+        <ins class="view">
+        {"id": "panel3a",
+         "widget": {
+           "type": "panel"
+         },
+         "model": "panel3",
+         "perspectives": ["perspective1", "perspective3"],
+         "controllers": ["controller1"]
+        }
+        </ins>
+
+      </td>
+      <td style="width: 60%">
+
+        <ins class="view">
+        {"id": "panel3b",
+         "widget": {
+           "type": "panel"
+         },
+         "model": "panel3",
+         "perspectives": ["perspective2"],
+         "controllers": ["controller1"]
+        }
+        </ins>
+
+        <ins class="view">
+        {"id": "panel4a",
+         "widget": {
+           "type": "panel"
+         },
+         "model": "panel4",
+         "perspectives": ["perspective2"],
+         "controllers": ["controller1"]
+        }
+        </ins>
+
+        <!-- this panel contains sub-panels -->
+        <ins class="view">
+        {"id": "panel5",
+         "widget": {
+           "type": "panel"
+         },
+         "model": "panel5",
+         "perspectives": ["perspective1"],
+         "controllers": ["controller1"]
+        }
+        </ins>
+
+
+      </td>
+      <td style="width: 20%">
+
+        <ins class="view">
+        {"id": "panel4b",
+         "widget": {
+           "type": "panel"
+         },
+         "model": "panel4",
+         "perspectives": ["perspective1", "perspective3"],
+         "controllers": ["controller1"]
+        }
+        </ins>
+
+        <ins class="view">
+        {"id": "panel2c",
+         "widget": {
+           "type": "panel"
+         },
+         "model": "panel2",
+         "perspectives": ["perspective1"],
+         "controllers": ["controller1"]
+        }
+        </ins>
+
+      </td>
+
+    </tr>
+  </table>
+
+
+  <!-- popup window -->
+  <ins class="model">
+  {"id": "window1",
+   "data": {
+     "url": "window1.html",
+     "css": "window1.css"
+   }}
+  </ins>
+
+  <ins class="view">
+  {"id": "window1",
+   "widget": {
+     "type": "panel"
+   },
+   "model": "window1",
+   "perspectives": ["perspective3", "perspective4"],
+   "controllers": ["controller1", "drag"]
+  }
+  </ins>
+
+  <ins class="controller">
+  {"id": "drag",
+   "type": "drag-and-drop",
+   "dragging": {
+     "source": "window",
+     "handle": "title"
+   },
+   "dropping": {}
+  }
+  </ins>
+
+</body>
+
+</html>

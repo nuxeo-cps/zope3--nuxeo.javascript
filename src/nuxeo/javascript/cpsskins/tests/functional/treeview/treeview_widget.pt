@@ -1,0 +1,32 @@
+
+<div ctal:condition="javascript:items.length == 0">Loading data ...</div>
+
+<div class="tree" ctal:repeat="item items">
+
+  <span ctal:attributes="style
+                  javascript:'margin-left:'+(item['depth']-1)*15+'px'"></span>
+
+  <img class="close" ctal:attributes="nodeid item/id"
+       src="/++skin++cpsskinsTest/@@/++resource++container-open.png"
+       ctal:condition="javascript:state[item['id']] == 'open' && !item['empty']
+                               && item['type'] == 'inner'" />
+
+  <img class="open" ctal:attributes="nodeid item/id"
+       src="/++skin++cpsskinsTest/@@/++resource++container.png"
+       ctal:condition="javascript:state[item['id']] != 'open' && !item['empty']
+                               && item['type'] == 'inner'" />
+
+  <img src="/++skin++cpsskinsTest/@@/node-link-branch.png"
+       ctal:condition="javascript:(item['type'] == 'leaf'
+                               && item['position'] != 'last')
+                               || item['empty']"/>
+
+  <img src="/++skin++cpsskinsTest/@@/node-link-last.png"
+       ctal:condition="javascript:item['type'] == 'leaf'
+                               && item['position'] == 'last'"/>
+
+  <img src="/++skin++cpsskinsTest/@@/folder.png" />
+
+  <span ctal:content="item/title">ITEM</span>
+
+</div>

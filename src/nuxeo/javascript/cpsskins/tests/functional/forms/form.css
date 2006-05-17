@@ -1,0 +1,41 @@
+
+form {
+  border: 1px solid #ccc;
+  background-color: #f6f3f0;
+  padding: 1em;
+  font: 1.3em arial, sans-serif;
+}
+
+label {
+  padding: 1em;
+}
+
+.hint {
+  padding: 1em;
+}
+
+.status {
+  padding: 1em;
+  color: red;
+}
+
+input {
+  border: 1px solid #999;
+  background-color: #fff;
+}
+
+input.disabled {
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  color: #ccc;
+}
+
+input:focus {
+  background-color: #ffc;
+}
+
+button {
+  margin: 1em;
+  border: 1px solid #999;
+  background-color: #ddd;
+}

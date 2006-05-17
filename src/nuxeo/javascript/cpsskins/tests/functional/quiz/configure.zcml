@@ -1,0 +1,30 @@
+<configure
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+  <browser:page
+      for="*"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      name="cpsskins_quiz.html"
+      permission="zope.Public"
+      template="cpsskins_quiz.pt"
+  />
+
+  <browser:pages
+      layer="cpsskins.browser.skin.cpsskins"
+      for="*"
+      class=".browser.Views"
+      permission="zope.Public">
+
+    <browser:page
+        name="getAnswer"
+        attribute="getAnswer"
+    />
+
+    <browser:page
+        name="setAnswer"
+        attribute="setAnswer"
+    />
+
+  </browser:pages>
+
+</configure>

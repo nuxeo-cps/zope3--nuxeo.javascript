@@ -1,0 +1,15 @@
+<form action="" method="post" onsubmit="return false">
+
+  <p ctal:repeat="f fields">
+    <label ctal:content="f/label">LABEL</label>
+    <input ctal:attributes="value f/value; name f/name" />
+    <span class="hint" ctal:condition="f/hint" ctal:content="f/hint">HINT</span>
+    <span class="status" ctal:condition="f/status"
+                         ctal:content="f/status">STATUS</span>
+  </p>
+
+  <p>
+    <button type="submit">Save</button>
+  </p>
+
+</form>

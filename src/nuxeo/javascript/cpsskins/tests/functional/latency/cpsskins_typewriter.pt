@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="/++skin++cpsskins/@@/++resource++prototype.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++json.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++cpsskins.js"
+          type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css"
+        href="/++skin++cpsskins/@@/++resource++cpsskins.css" />
+
+  <style type="text/css">
+  table.results {
+    width: 100%;
+  }
+  table.results th {
+    background-color: #eee;
+    border: 1px solid #ccc;
+  }
+  table.results td {
+    width: 50%;
+    border: 1px solid #ccc;
+  }
+  .car {
+    font: 20px serif;
+  }
+  form {
+    padding: 0.5em;
+    margin: 2px;
+  }
+  label {
+    font: bold 20px Arial;
+  }
+  input {
+    color: #000;
+    border: 1px solid #ccc;
+    border-style: none none solid none;
+    font: 22px serif;
+    padding: 0.2em;
+  }
+  input:focus {
+    border-color: #000;
+  }
+  </style>
+
+  <script type="text/javascript">
+    var model, s=0;
+
+    Event.observe(window, "load", init);
+
+    function init() {
+
+      var onKeyPressEvent = function(e) {
+        var key = e.charCode;
+        if (!key) return;
+        s += 1;
+        var model1 = CPSSkins.getModelById("no-sequence");
+        var model2 = CPSSkins.getModelById("queue-sequence");
+        model1.setData({'storage': 1, 'position': key, 's': s, 'latency': 2});
+        model2.setData({'storage': 2, 'position': key, 's': s, 'latency': 2});
+      }.bindAsEventListener(this);
+
+      Event.observe($("input"), 'keypress', onKeyPressEvent);
+
+    }
+
+    CPSSkins.registerWidgets({
+
+      typewriter: function(def) {
+        var widget = CPSSkins.Canvas.createNode({
+          tag: "div",
+          classes: "typewriter"
+        });
+        return new TypeWriter(widget, def);
+      },
+
+    });
+
+    TypeWriter = Class.create();
+    TypeWriter.prototype = Object.extend(new CPSSkins.View(), {
+
+      render: function(data) {
+
+        var span = CPSSkins.Canvas.createNode(
+          {tag: "span", classes:"car", text: String.fromCharCode(data.position)}
+        );
+        this.widget.appendChild(span);
+
+      }
+
+    });
+
+  </script>
+
+</head>
+<body>
+
+  <h1>CPSSkins: typewriter</h1>
+
+  <p>In this example each character typed by the user is sent to the remote
+     server and sent back to the client.</p>
+
+  <p>The first storage enforces no special access sequence.</p>
+
+  <p>The second storage enforces a queue access sequence which means that
+     the characters are printed in the same order as they are type in.
+  </p>
+
+  <!-- models -->
+  <ins class="model">
+  {"id": "no-sequence",
+   "data": {
+     "position": 0
+   },
+   "storage": {
+     "type": "remote",
+     "accessors": {
+       "set": "@@setDataWithLatency.html"
+     }
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "queue-sequence",
+   "data": {
+     "position": 0,
+     "s": ""
+   },
+   "storage": {
+     "type": "remote",
+     "access": {
+       "type": "queue",
+       "signature": "s"
+     },
+     "accessors": {
+       "set": "@@setDataWithLatency.html"
+     }
+  }}
+  </ins>
+
+  <ins class="controller">
+  {"id": "show-view",
+   "type": "perspective selector",
+   "initial": "default"
+  }
+  </ins>
+
+  <div>
+
+    <form action="" onsubmit="return false">
+      <p><label>&gt;
+        <input id="input" name="position" size="40" />
+        </label>
+      </p>
+    </form>
+
+    <table class="results">
+      <tr>
+        <th>No access sequence</th>
+        <th>Queue access sequence</th>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          <ins class="view">
+          {"id": "right",
+           "widget": {
+             "type": "typewriter"
+            },
+           "model": "no-sequence",
+           "controllers": ["show-view"],
+           "perspectives": ["default"]
+          }
+          </ins>
+        </td>
+
+        <td valign="top">
+          <ins class="view">
+          {"id": "left",
+           "widget": {
+             "type": "typewriter"
+            },
+           "model": "queue-sequence",
+           "controllers": ["show-view"],
+           "perspectives": ["default"]
+          }
+          </ins>
+        </td>
+
+      </tr>
+    </table>
+
+  </div>
+
+</body>
+</html>

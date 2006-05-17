@@ -1,0 +1,33 @@
+<configure
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+  <browser:page
+      for="*"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      name="cpsskins_latency.html"
+      permission="zope.Public"
+      template="cpsskins_latency.pt"
+  />
+
+  <browser:page
+      for="*"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      name="cpsskins_typewriter.html"
+      permission="zope.Public"
+      template="cpsskins_typewriter.pt"
+  />
+
+  <browser:pages
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      for="*"
+      class=".browser.Views"
+      permission="zope.Public">
+
+    <browser:page
+        name="setDataWithLatency.html"
+        attribute="setDataWithLatency"
+    />
+
+  </browser:pages>
+
+</configure>

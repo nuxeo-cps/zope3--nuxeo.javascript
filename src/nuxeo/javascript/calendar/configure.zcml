@@ -1,0 +1,10 @@
+<configure
+    xmlns="http://namespaces.zope.org/browser">
+
+  <!-- client-side TAL interpreter -->
+
+  <resourceDirectory
+      name="nuxeo.calendar" directory="src/calendar"
+  />
+
+</configure>

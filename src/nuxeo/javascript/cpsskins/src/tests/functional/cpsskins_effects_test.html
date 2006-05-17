@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="../prototype.js" type="text/javascript"></script>
+  <script src="../json.js" type="text/javascript"></script>
+  <script src="../ctal.js" type="text/javascript"></script>
+  <script src="../../cpsskins.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="../../cpsskins.css" type="text/css" />
+
+  <style stype="text/css">
+  .frame {
+    background-color: #f9f3f3;
+    padding: 0.5em;
+    width: 130px;
+    border: 1px solid #999;
+    font: 1.3em arial, sans-serif;
+  }
+  table.demo th {
+    border: 1px solid #999;
+    background-color: #efc;
+    font: 1.3em arial, sans-serif;
+  }
+  table.demo td {
+    width: 150px;
+    padding: 0.5em;
+    border: 1px solid #999;
+  }
+  </style>
+
+</head>
+<body>
+
+  <h1>CPSSkins: effects</h1>
+
+  <ins class="model">
+  {"id": "effect1"}
+  </ins>
+
+  <ins class="model">
+  {"id": "effect2"}
+  </ins>
+
+  <ins class="model">
+  {"id": "effect3"}
+  </ins>
+
+  <ins class="model">
+  {"id": "effect4"}
+  </ins>
+
+  <table class="demo">
+  <tr>
+  <th>fadein</th>
+  <th>fadeout</th>
+  <th>blinddown</th>
+  <th>blindup</th>
+  </tr>
+
+  <tr>
+  <td valign="top">
+
+  <ins class="view">
+  {"id": "view1",
+   "widget": {
+     "template": "effect_template.pt"
+   },
+   "model": "effect1",
+   "render_effect": {
+     "duration": 1000,
+     "delay": 300,
+     "transition": "fadein"
+  }}
+  </ins>
+
+  </td> 
+  <td valign="top">
+
+  <ins class="view">
+  {"id": "view2",
+   "widget": {
+     "template": "effect_template.pt"
+   },
+   "model": "effect2",
+   "render_effect": {
+     "duration": 1000,
+     "delay": 1300,
+     "transition": "fadeout"
+  }}
+  </ins>
+
+  </td> 
+  <td valign="top">
+
+  <ins class="view">
+  {"id": "view3",
+   "widget": {
+     "template": "effect_template.pt"
+   },
+   "model": "effect3",
+   "render_effect": {
+     "duration": 1000,
+     "delay": 2300,
+     "transition": "blinddown"
+  }}
+  </ins>
+
+  </td> 
+  <td valign="top">
+
+  <ins class="view">
+  {"id": "view4",
+   "widget": {
+     "template": "effect_template.pt"
+   },
+   "model": "effect4",
+   "render_effect": {
+     "duration": 1000,
+     "delay": 3300,
+     "transition": "blindup"
+  }}
+  </ins>
+  </td> 
+
+  </tr>
+  </table>
+
+</body>
+</html>

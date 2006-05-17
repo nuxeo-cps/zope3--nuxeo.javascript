@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Panels</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="/++skin++cpsskins/@@/++resource++prototype.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++json.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++ctal.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++cpsskins.js"
+          type="text/javascript"></script>
+
+  <style type="text/css">
+  div.box {
+    padding: 0.8em;
+    border: 1px solid #fc0;
+    background-color: #ffc;
+    width: 240px;
+    font: 13px verdana, sans-serif;
+    margin: 10px;
+  }
+  </style>
+
+</head>
+<body>
+
+  <h1>CPSSkins Panels / Remote scripting</h1>
+
+  <p>The panel shown below has a form controller attached to it. When the user
+  clicks on the "click me!" button a remote call is done to the server which 
+  performs some action with the form data and returns a new url for the panel.
+  </p>
+  <p>This makes it possible to perform a form submission with a redirection 
+  inside a given area of a page without reloading the entire page.
+  </p>
+  <p>There is also a "Remote Scripting Controller" which converts HTML links
+  into ajax request to do remote server scripting without reloading the page.
+  </p>
+
+  <ins class="model">
+  {"id": "panel",
+   "data": {
+     "url": "@@panels-form.html",
+     "form": {}
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "panel2",
+   "data": {
+     "url": "@@panels-form.html",
+     "form": {}
+  }}
+  </ins>
+
+  <div class="box">
+    <ins class="view">
+    {"id": "panel-view",
+     "model": "panel",
+     "perspectives": ["default"],
+     "controllers": ["show-panel", "request1"],
+     "widget": {
+       "type": "panel"
+     },
+     "render_effect": {
+       "transition": "fadein",
+       "duration": 500
+    }}
+    </ins>
+  </div>
+
+  <div class="box">
+    <ins class="view">
+    {"id": "panel-view-2",
+     "model": "panel2",
+     "perspectives": ["default"],
+     "controllers": ["show-panel", "request2"],
+     "widget": {
+       "type": "panel"
+     },
+     "render_effect": {
+       "transition": "fadein",
+       "duration": 500
+    }}
+    </ins>
+  </div>
+
+  <ins class="controller">
+  {"id": "request1",
+   "type": "remote scripting"
+  }
+  </ins>
+
+  <ins class="controller">
+  {"id": "request2",
+   "type": "remote scripting"
+  }
+  </ins>
+
+  <ins class="controller">
+  {"id": "show-panel",
+   "type": "perspective selector",
+   "initial": "default"
+  }
+  </ins>
+
+</body>
+</html>

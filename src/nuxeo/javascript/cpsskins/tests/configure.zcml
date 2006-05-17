@@ -1,0 +1,17 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser">
+
+  <!-- Test cpsskins skin -->
+  <!-- commenting so the package works over Zope 2
+  <interface
+      name="cpsskinsTest"
+      interface=".ITestSkin"
+      type="zope.publisher.interfaces.browser.IDefaultSkin"
+  />
+
+  <include package=".functional" />
+
+  <include package=".unit" />
+  -->
+</configure>

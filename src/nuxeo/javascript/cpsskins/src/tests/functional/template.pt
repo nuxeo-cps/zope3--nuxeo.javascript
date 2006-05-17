@@ -1,0 +1,14 @@
+<div class="frame">
+
+  <h2 ctal:content="test/title">The title comes here</h2>
+
+  <p>This paragraph comes from the template.</p>
+
+  <ul>
+    <li ctal:repeat="item test/items">
+      <a ctal:content="item/title"
+         ctal:attributes="href item/url; title item/description">item</a>
+    </li>
+  </ul>
+
+</div>

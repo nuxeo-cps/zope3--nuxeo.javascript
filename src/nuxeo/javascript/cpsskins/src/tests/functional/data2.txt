@@ -1,0 +1,16 @@
+
+{"id": "tooltip",
+ "selectors": ["#area1"],
+ "widget": {
+   "type": "tooltip",
+   "follow": true
+ },
+ "controllers": ["show-hide-tooltip"],
+ "show_effect": {
+   "transition": "fadein",
+   "delay": 30
+ },
+ "hide_effect": {
+   "transition": "fadeout",
+   "delay": 500
+}}

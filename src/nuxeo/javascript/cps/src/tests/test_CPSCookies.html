@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>The Title</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="prototype.js" type="text/javascript"></script>
+  <script src="effects.js" type="text/javascript"></script>
+  <script src="../cps.js" type="text/javascript"></script>
+  <script src="unittest.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="test.css" type="text/css" />
+
+</head>
+<body>
+<h1>CPS.Cookies Unit Tests</h1>
+<p>
+  Test of CPS.Cookies
+</p>
+
+
+<div id="testlog"/>
+
+<!-- Tests follow -->
+<script type="text/javascript" charset="utf-8">
+// <![CDATA[
+
+  new Test.Unit.Runner({
+
+    setup: function() {
+      this.idle = 250;
+    },
+
+    test_set_get_delete: function() { with(this) {
+      assertEqual(CPS.Cookies.get("cheesecake"), null);
+      CPS.Cookies.set("cheesecake", "1");
+      assertEqual(CPS.Cookies.get("cheesecake"), "1");
+      CPS.Cookies.del("cheesecake");
+      assertEqual(CPS.Cookies.get("cheesecake"), null);
+    }}
+
+  }, {"testLog": "testlog"});
+      //,"resultsURL": "http://localhost:8081/jsResults"});
+
+// ]]>
+</script>
+
+
+</body>
+</html>

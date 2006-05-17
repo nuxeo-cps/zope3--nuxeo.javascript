@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="../prototype.js" type="text/javascript"></script>
+  <script src="../json.js" type="text/javascript"></script>
+  <script src="../../cpsskins.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="../../cpsskins.css" type="text/css" />
+
+  <style type="text/css">
+    h2 {
+      border-bottom: 1px solid #ccc;
+      margin-top: 1.5em;
+    }
+
+    #dataProvider {
+      border: 1px solid orange;
+      padding: 0.7em;
+      background-color: #fc0;
+      width: 120px;
+      text-align: center;
+      cursor: default;
+    }
+
+    #info {
+      background-color: #ffc;
+      border: 1px solid orange;
+      padding: 1em;
+      width: 120px;
+      cursor: default;
+    }
+
+    .counter {
+      font-size: 2em;
+      width: 460px;
+      padding: 0 0.5em;
+      margin: 8px 0;
+    }
+
+    .progressBar {
+      border: 1px solid #000;
+      background-color: #69c;
+      height: 20px;
+      width: 10px;
+    }
+  </style>
+
+  <script type="text/javascript">
+    var timer = null;
+    var model;
+
+    Event.observe(window, "load", init);
+
+    function init() {
+      model = CPSSkins.getModelById("data-provider");
+    }
+
+    function start() {
+      if (timer) return;
+      timer = setInterval("updateModel()", 100);
+    }
+
+    function stop() {
+      clearInterval(timer);
+      timer = null;
+    }
+
+    function updateModel() {
+      var data = model.getData();
+      data.size += 1;
+      data.hint = "The size is now " + data.size;
+      data.sizeinfo[0].label = data.size;
+      model.updateData(data);
+    }
+
+    CPSSkins.registerWidgets({
+
+      'counter': function(def) {
+        var widget = CPSSkins.Canvas.createNode({
+          tag: "div",
+          classes: "counter"
+        });
+        return new Counter(widget, def);
+      },
+
+      'progressbar': function(def) {
+        var widget = CPSSkins.Canvas.createNode({
+          tag: "div",
+          classes: "progressBar"
+        });
+        return new ProgressBar(widget, def);
+      }
+
+    });
+
+    Counter = Class.create();
+    Counter.prototype = Object.extend(new CPSSkins.View(), {
+
+      render: function(data) {
+        this.widget.innerHTML = data.size;
+      }
+
+    });
+
+    ProgressBar = Class.create();
+    ProgressBar.prototype = Object.extend(new CPSSkins.View(), {
+
+      render: function(data) {
+        this.widget.style.width = data.size % 50 * 10 +"px";
+      }
+
+    });
+
+  </script>
+
+</head>
+
+<body>
+
+  <h1>CPSSkins model-view test</h1>
+
+  <p>The views observe the model.
+     When the model changes the views get updated.</p>
+
+  <ins class="controller">
+  {"id": "show-hide-menu",
+   "type": "focus observer"
+  }
+  </ins>
+
+  <ins class="controller">
+  {"id": "show-hide-tooltip",
+   "type": "focus observer"
+  }
+  </ins>
+
+  <h2>Model</h2>
+  <ins class="model">
+  {"id": "data-provider",
+   "data": {
+    "size": 1,
+    "sizeinfo": [
+      {"choice": "", "label": ""}
+    ]
+  }}
+  </ins>
+
+  <div id="dataProvider">DATA PROVIDER
+
+    <!-- tooltip view -->
+    <ins class="view">
+    {"id": "tooltip",
+     "widget": {
+       "type":"tooltip"
+     },
+     "controllers": ["show-hide-tooltip"],
+     "show_effect": {
+       "delay": 1500
+     }
+    }
+    </ins>
+
+    <!-- contextual menu view -->
+    <ins class="view">
+    {"id": "menu",
+     "widget": {
+      "type": "contextmenu",
+      "items": [
+        {"type": "selection", "choices": "sizeinfo"}
+      ],
+     "controllers": ["show-hide-menu"]
+    }}
+    </ins>
+  </div>
+
+  <h2>Is observed by:</h2>
+
+  <h3>progress bar widget</h3>
+  <ins class="view">
+  {"id": "progressbar",
+   "widget": {
+     "type": "progressbar"
+   },
+   "model": "data-provider"
+  }
+  </ins>
+
+  <h3>counter widget</h3>
+  <ins class="view">
+  {"id": "counter",
+   "widget": {
+     "type": "counter"
+   },
+   "model": "data-provider"
+  }
+  </ins>
+
+  <h3>menu widget</h3>
+  <div id="info">
+    Info
+    <!-- menu view observing the data provider -->
+    <ins class="view">
+    {"id": "menu2",
+     "widget": {
+       "type": "contextmenu",
+       "items": [
+         {"type": "submenu",
+          "label": "Size info",
+          "items": [
+            {"type": "selection",
+             "choices": "sizeinfo"
+            }
+          ]
+         }
+       ]
+     },
+     "model": "data-provider"
+    }
+    </ins>
+
+  </div>
+
+  <h2>Controls</h2>
+  <p>
+    <button onclick="start()">START</button>
+    <button onclick="stop()">STOP</button>
+  </p>
+
+  <div id="message"></div>
+
+</body>
+
+</html>

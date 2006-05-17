@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="/++skin++cpsskins/@@/++resource++prototype.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++json.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++cpsskins.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++unittest.js"
+          type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css"
+        href="/++skin++cpsskins/@@/++resource++test.css" />
+  <link rel="stylesheet" type="text/css"
+        href="/++skin++cpsskins/@@/++resource++cpsskins.css" />
+</head>
+<body>
+
+<h1>CPSSkins Unit test file</h1>
+
+<!-- Log output -->
+<div id="testlog"> </div>
+
+<!-- Testing area -->
+<div id="e0">
+
+  <!-- unified storages -->
+  <ins class="model">
+  {"id": "m1",
+   "data": {"a": 1}
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "m2",
+   "data": {"b": 2}
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "m3",
+   "data": {"c": 3},
+   "storage": {
+     "type": "remote",
+     "accessors": {
+       "get": "@@getData2",
+       "set": "@@setData2"
+     }
+   }
+  }
+  </ins>
+
+  <ins class="model">
+  {"id": "c1",
+   "data": {"a": 0, "b": 0, "c": 0},
+   "storage": {
+     "type": "unified",
+     "units": ["m1", "m2", "m3"]
+  }}
+  </ins>
+
+</div>
+
+<!-- Tests follow -->
+<script type="text/javascript">
+// <![CDATA[
+
+  var model_c1;
+  var model_m1;
+  var model_m2;
+  var model_m3;
+
+  // Tests are run asynchronously, results are recorded:
+  var results = [];
+  var dummy = new Object();
+
+  var expected = [
+    {'a': 1},
+    {'a': 1, 'b': 2},
+    {'a': 1, 'b': 2, 'c': 1},
+  ];
+
+  new Test.Unit.Runner({
+
+    setup: function() {
+      model_c1 = CPSSkins.getModelById('c1');
+      model_m1 = CPSSkins.getModelById('m1');
+      model_m2 = CPSSkins.getModelById('m2');
+      model_m3 = CPSSkins.getModelById('m3');
+
+      CPSSkins.registerEventHandler('modified', dummy, function(event) {
+        // record modifications
+        results.push($H(event.target.def.data));
+        debug($H(event.target.def.data));
+      });
+
+      CPSSkins.subscribe('modified',
+        {'subscriber': dummy, 'target': model_m3}
+      );
+
+      model_c1.getData();
+      model_c1.getData();
+      model_c1.setData({"a": 10, "b": 1, "c": 10});
+
+      model_c1.getData();
+    },
+
+    testGetData: function() { with(this) {
+      $A(expected).each(function(r, index) {
+        assertEqual($H(r).inspect(), $H(results[index]).inspect());
+      });
+    }},
+
+    /*
+    testSetData: function() { with(this) {
+
+      assertEqual($H(model_c1.getData()).inspect(),
+                  $H({"a": 1, "b": 2, "c": 3}).inspect());
+    }},
+
+    testGetData2: function() { with(this) {
+      assertEqual($H(model_c1.schema).inspect(),
+                  $H({'a': 'number', 'b': 'number', 'c': number}).inspect());
+
+      assertEqual($H(model_m1.schema).inspect(),
+                  $H({'a': 'number'}).inspect());
+
+      assertEqual($H(model_m2.schema).inspect(),
+                  $H({'b': 'number'}).inspect());
+
+      assertEqual($H(model_m3.schema).inspect(),
+                  $H({'c': 'number'}).inspect());
+
+      model_c1.setData({"a": 3, "b": 1});
+      assertEqual($H(model_c1.getData()).inspect(),
+                  $H({"a": 3, "b": 1}).inspect());
+      assertEqual($H(model_m1.getData()).inspect(),
+                  $H({"a": 3}).inspect());
+      assertEqual($H(model_m2.getData()).inspect(),
+                  $H({"b": 1}).inspect());
+
+      model_c1.setData({"a": 4});
+      assertEqual($H(model_c1.getData()).inspect(),
+                  $H({"a": 4}).inspect());
+      assertEqual($H(model_m1.getData()).inspect(),
+                  $H({"a": 4}).inspect());
+      assertEqual($H(model_m2.getData()).inspect(),
+                  $H({}).inspect());
+
+    }}
+    */
+
+  });
+
+// ]]>
+</script>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="../prototype.js" type="text/javascript"></script>
+  <script src="../json.js" type="text/javascript"></script>
+  <script src="../../cpsskins.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="../../cpsskins.css" type="text/css" />
+  <link rel="stylesheet" href="contextualmenus.css" type="text/css" />
+</head>
+
+<body>
+
+  <h1>CPSSkins Contextual menu</h1>
+
+  <ins class="controller">
+  {"id": "show-hide-menu",
+   "type": "focus observer"
+  }
+  </ins>
+
+  <ins class="controller">
+  {"id": "do-action",
+   "type": "command"
+  }}
+  </ins>
+
+  <div style="float: left; margin: 1em">
+
+    <!-- View: contextual menu widget -->
+
+    <ins class="view">
+    {"id": "menu",
+     "selectors": ["div"],
+     "widget": {
+       "type": "contextmenu",
+       "items": [
+         {"type": "item",
+          "label": "Edit",
+          "icon": "edit.png",
+          "action": "edit",
+          "visible": "editable"
+         },
+         {"type": "separator"
+         },
+         {"type": "item",
+          "label": "Copy",
+          "icon": "copy.png",
+          "action": "copy"
+         },
+         {"type": "item",
+          "label": "Paste",
+          "icon": "paste.png",
+          "action": "paste",
+          "visible": "editable"
+         },
+         {"type": "separator"
+         },
+         {"type": "submenu",
+          "label": "Format",
+          "visible": "formattable",
+          "items": [
+            {"type": "selection",
+             "action": "format",
+             "choices": "formats"
+            },
+            {"type": "submenu",
+             "label": "size",
+             "visible": "resizable",
+             "items": [
+               {"type": "selection",
+                "action": "size",
+                "choices": "sizes"
+               }
+             ]
+            }
+          ]
+         },
+         {"type": "separator"
+         },
+         {"type": "submenu",
+          "label": "size",
+          "visible": "resizable",
+          "items": [
+            {"type": "selection",
+             "action": "size",
+             "choices": "sizes"
+            }
+          ]
+         },
+         {"type": "item",
+          "label": "Delete",
+          "icon": "delete.png",
+          "action": "delete",
+          "confirm": "Deleting are you sure"
+         }
+       ]
+     },
+     "controllers": ["show-hide-menu", "do-action"],
+     "show_effect": {
+       "transition": "fadein"
+     },
+     "hide_effect": {
+       "transition": "fadeout"
+     }
+    }
+    </ins>
+
+    <ins class="model">
+    {"id": "m1",
+     "data": {
+      "copyable":true
+    }}
+    </ins>
+
+    <div id="area">
+    <div id="area1" class="pad">area1</div>
+
+    <ins class="model">
+    {"id": "m2",
+     "data": {
+      "formattable":true,
+      "formats":[
+        {"choice":"style","label":"Style"}
+      ]
+    }}
+    </ins>
+    <div id="area2" class="pad">area2</div>
+
+    <ins class="model">
+    {"id": "m3",
+     "data": {
+      "editable":true
+    }}
+    </ins>
+    <div id="area3" class="pad">area3</div>
+
+    <ins class="model">
+    {"id": "m4",
+     "data": {
+      "editable":true,
+      "formattable":true,
+      "formats":[
+        {"choice":"style","label":"Style"},
+        {"choice":"widget","label":"Widget"},
+        {"choice":"effect","label":"Effect"}
+      ],
+      "resizable":true,
+      "sizes":[
+        {"choice":"small","label":"Small"},
+        {"choice":"medium","label":"Medium"},
+        {"choice":"large","label":"Large"},
+        {"choice":"x-large","label":"Extra large"}
+      ]}
+    }
+    </ins>
+    <div id="area4" class="pad">area4
+
+      <ins class="model">
+      {"id": "m5",
+       "data": {
+        "editable":true
+      }}
+      </ins>
+      <div id="area5" class="pad">area5</div>
+    </div>
+    </div>
+  </div>
+
+  <!-- Controller -->
+  <script type="text/javascript">
+    function displayChoice(event) {
+      var target = event.target;
+      var options = event.options;
+      $("message").innerHTML +=
+        target.getAttribute('id') + ' =&gt; ' + options.choice + '\n';
+    }
+
+    CPSSkins.addActions({
+      'edit': displayChoice,
+      'copy': displayChoice,
+      'paste': displayChoice,
+      'format': displayChoice,
+      'size': displayChoice,
+      'delete': displayChoice
+      });
+  </script>
+
+  <pre id="message"></pre>
+
+</body>
+
+</html>

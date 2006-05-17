@@ -1,0 +1,23 @@
+<form action="@@doSomething" method="get" onsubmit="return false"
+  tal:define="updated request/form/updated|nothing">
+
+  <div tal:condition="not:updated">
+    <p>
+      <span>To update this box ...</span>
+      <button type="submit">Click me!</button>
+    </p>
+
+    <p>
+      or <a href="@@doSomething">click me!</a>
+    </p>
+  </div>
+
+  <p tal:condition="updated">
+    I have just been updated!
+  </p>
+
+  <p>
+    <input type="hidden" name="param" value="1" />
+  </p>
+
+</form>

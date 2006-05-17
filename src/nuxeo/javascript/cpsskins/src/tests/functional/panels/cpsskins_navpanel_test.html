@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="../../prototype.js" type="text/javascript"></script>
+  <script src="../../json.js" type="text/javascript"></script>
+  <script src="../../../cpsskins.js" type="text/javascript"></script>
+
+  <style type="text/css">
+  .header {
+    padding: 0.5em;
+    border: 1px solid #999;
+    background-color: #369;
+    margin-top: 2px;
+    background-image: url(header.png);
+    background-color: #eff;
+    display: block;
+    text-decoration: none;
+    color: #000;
+    font: 13px Arial, sans-serif;
+  }
+
+  .panel {
+    padding: 2em;
+    margin-bottom: 5px;
+    border-style: none solid solid solid;
+    border-width: 1px;
+    border-color: #999;
+  }
+  </style>
+</head>
+
+<body>
+
+  <h1>CPSSkins navigation panels</h1>
+
+  <ins class="controller">
+  {"id": "controller1",
+   "type": "perspective selector"
+  }
+  </ins>
+
+  <ins class="model">
+  {"id": "panel1",
+   "data": {
+     "url": "panel1.html",
+     "css": "panel1.css"
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "panel2",
+   "data": {
+     "url": "panel2.html",
+     "css": "panel2.css"
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "panel3",
+   "data": {
+     "url": "panel3.html",
+     "css": "panel3.css"
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "panel4",
+   "data": {
+     "url": "panel4.html",
+     "css": "panel4.css"
+  }}
+  </ins>
+
+  <div>
+  <a class="header"
+    href="javascript:CPSSkins.getControllerById('controller1').switchTo('panel1')">PANEL 1</a>
+  </div>
+
+  <ins class="view">
+  {"id": "panel1",
+   "widget": {
+     "type": "panel"
+   },
+   "model": "panel1",
+   "perspectives": ["panel1"],
+   "controllers": ["controller1"]
+  }
+  </ins>
+
+  <div>
+  <a class="header"
+    href="javascript:CPSSkins.getControllerById('controller1').switchTo('panel2')">PANEL 2</a>
+  </div>
+
+  <ins class="view">
+  {"id": "panel2",
+   "widget": {
+     "type": "panel"
+   },
+   "model": "panel2",
+   "perspectives": ["panel2"],
+   "controllers": ["controller1"]
+  }
+  </ins>
+
+  <div>
+  <a class="header"
+    href="javascript:CPSSkins.getControllerById('controller1').switchTo('panel3')">PANEL 3</a>
+  </div>
+
+  <ins class="view">
+  {"id": "panel3",
+   "widget": {
+     "type": "panel"
+   },
+   "model": "panel3",
+   "perspectives": ["panel3"],
+   "controllers": ["controller1"]
+  }
+  </ins>
+
+  <div>
+  <a class="header"
+    href="javascript:CPSSkins.getControllerById('controller1').switchTo('panel4')">PANEL 4</a>
+  </div>
+
+  <ins class="view">
+  {"id": "panel4",
+   "widget": {
+     "type": "panel"
+   },
+   "model": "panel4",
+   "perspectives": ["panel4"],
+   "controllers": ["controller1"]
+  }
+  </ins>
+
+</body>
+
+</html>

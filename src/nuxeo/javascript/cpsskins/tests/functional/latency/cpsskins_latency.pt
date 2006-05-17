@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="/++skin++cpsskins/@@/++resource++prototype.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++json.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++cpsskins.js"
+          type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css"
+        href="/++skin++cpsskins/@@/++resource++cpsskins.css" />
+
+  <style type="text/css">
+  .bar {
+    color: #fff;
+    margin: 2px;
+    padding: 2px;
+    font: 12px arial, sans-serif;
+    border: 1px solid #003;
+    background-color: rgb(1, 2, 100);
+  }
+  table.results {
+    width: 100%;
+  }
+  table.results th {
+    background-color: #eee;
+    border: 1px solid #999;
+  }
+  table.results td {
+    width: 33%;
+    border: 1px solid #ccc;
+  }
+  </style>
+
+  <script type="text/javascript">
+    var model;
+
+    Event.observe(window, "load", init);
+
+    function init() {
+      run('no-sequence', 1);
+      run('queue-sequence', 2);
+      run('stack-sequence', 3);
+    }
+
+    function run(model_id, storage) {
+      var model = CPSSkins.getModelById(model_id);
+      $R(1,10).each(function(v) {
+        model.setData({'storage': storage, 'position': v, 's': v,
+                       'latency': 2});
+      });
+    }
+
+    CPSSkins.registerWidgets({
+
+      counter: function(def) {
+        var widget = CPSSkins.Canvas.createNode({
+          tag: "div",
+          classes: "counter"
+        });
+        return new Counter(widget, def);
+      },
+    });
+
+    Counter = Class.create();
+    Counter.prototype = Object.extend(new CPSSkins.View(), {
+
+      render: function(data) {
+        var size = data.position * 10;
+        var div = CPSSkins.Canvas.createNode(
+          {tag: "div", classes: "bar",
+           style: {width: size + "px",
+                   backgroundColor: "rgb(" + size + ",0,150)"},
+           text: " " + data.position + " "}
+        );
+        this.widget.appendChild(div);
+      }
+
+    });
+
+  </script>
+
+</head>
+<body>
+
+  <h1>CPSSkins: controlling network latency</h1>
+
+  <p>Because they do asynchronous calls, AJAX applications often receive the
+     results of a series of requests in an order completely different from
+     the order in which the requests were originally made.</p>
+
+  <p>If the network or the server response latency is significant, or if the
+     user performs many actions in a short time period, the results of these
+     actions will be presented in an unpredictable sequence.
+     A solution is to specify access rules for the data storage:<p>
+
+  <dl>
+    <dt>STACK SEQUENCE (LIFO)</dt>
+    <dd>The last request gets highest priority, it will be fulfilled before
+        the other requests (useful when typing text, when cancelling, etc.).
+    </dd>
+
+    <dt>QUEUE SEQUENCE (FIFO)</dt>
+    <dd>The request order is respected.</dd>
+  </dl>
+
+  <p>In the example below, some data (1 .. 10) is written in a remote storage
+     in the following order: 1, 2, 3, ... 10. The results are displayed as soon
+     as the client gets a response from the server.</p>
+
+  <p>The storages that specify an access sequence are guaranteed to see the data
+     being stored in the specified order.</p>
+
+  <!-- models -->
+  <ins class="model">
+  {"id": "no-sequence",
+   "data": {
+     "position": 0
+   },
+   "storage": {
+     "type": "remote",
+     "accessors": {
+       "set": "@@setDataWithLatency.html"
+     }
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "stack-sequence",
+   "data": {
+     "position": 0,
+     "s": 0
+   },
+   "storage": {
+     "type": "remote",
+     "access": {
+       "type": "stack",
+       "signature": "s"
+     },
+     "accessors": {
+       "set": "@@setDataWithLatency.html"
+     }
+  }}
+  </ins>
+
+  <ins class="model">
+  {"id": "queue-sequence",
+   "data": {
+     "position": 0,
+     "s": 0
+   },
+   "storage": {
+     "type": "remote",
+     "access": {
+       "type": "queue",
+       "signature": "s"
+     },
+     "accessors": {
+       "set": "@@setDataWithLatency.html"
+     }
+  }}
+  </ins>
+
+  <ins class="controller">
+  {"id": "show-view",
+   "type": "perspective selector",
+   "initial": "default"
+  }
+  </ins>
+
+  <table class="results">
+    <tr>
+
+      <th>No sequence</th>
+      <th>Queue sequence</th>
+      <th>Stack sequence</th>
+
+    </tr>
+
+    <tr>
+
+      <td valign="top">
+        <ins class="view">
+        {"id": "view1",
+         "widget": {
+           "type": "counter"
+          },
+         "model": "no-sequence",
+         "controllers": ["show-view"],
+         "perspectives": ["default"]
+        }
+        </ins>
+      </td>
+
+      <td valign="top">
+        <ins class="view">
+        {"id": "view2",
+         "widget": {
+           "type": "counter"
+          },
+         "model": "queue-sequence",
+         "controllers": ["show-view"],
+         "perspectives": ["default"]
+        }
+        </ins>
+      </td>
+
+      <td valign="top">
+        <ins class="view">
+        {"id": "view3",
+         "widget": {
+           "type": "counter"
+          },
+         "model": "stack-sequence",
+         "controllers": ["show-view"],
+         "perspectives": ["default"]
+        }
+        </ins>
+      </td>
+
+    </tr>
+  </table>
+
+</body>
+</html>

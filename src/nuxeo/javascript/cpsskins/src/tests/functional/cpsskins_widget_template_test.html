@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="../prototype.js" type="text/javascript"></script>
+  <script src="../json.js" type="text/javascript"></script>
+  <script src="../ctal.js" type="text/javascript"></script>
+  <script src="../../cpsskins.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="../../cpsskins.css" type="text/css" />
+
+  <style stype="text/css">
+  .frame {
+    background-color: #f9f3f3;
+    padding: 0.5em;
+    width: 250px;
+    border: 1px solid #999;
+    font: 1.3em arial, sans-serif;
+  }
+
+  .frame h2 {
+    border-bottom: 1px solid #000;
+  }
+
+  table.fancy {
+    border: 1px solid #666;
+  }
+
+  table.fancy tr {
+    border-bottom: 1px solid #666;
+  }
+  </style>
+
+</head>
+<body>
+
+  <h1>CPSSkins: view templates</h1>
+
+  <p>Widgets can be rendered using an external template.</p>
+
+  <p>CTAL templates are very similar to Zope Page Templates.</p>
+
+  <ins class="model">
+  {"id": "template-data",
+   "data": {
+     "test": {
+       "title": "Hello world",
+       "items": [
+         {"title": "zope",
+          "url": "http://www.zope.org",
+          "description": "The Web Site for the Zope Community"
+         },
+         {"title": "z3lab",
+          "url": "http://www.z3lab.org",
+          "description": "Z3ECM: Enterprise content management for Zope3"
+         }
+       ]
+     }
+  }}
+  </ins>
+
+  <ins class="view">
+  {"id": "some-template",
+   "widget": {
+     "template": "template.pt"
+   },
+   "model": "template-data",
+   "render_effect": {
+     "transition": "fadein"
+  }}
+  </ins>
+
+</body>
+</html>

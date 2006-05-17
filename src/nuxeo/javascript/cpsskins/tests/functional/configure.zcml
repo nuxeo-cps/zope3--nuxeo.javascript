@@ -1,0 +1,19 @@
+<configure>
+
+  <include package=".quiz" />
+
+  <include package=".chat" />
+
+  <include package=".aggregator" />
+
+  <include package=".benchmarks" />
+
+  <include package=".forms" />
+
+  <include package=".latency" />
+
+  <include package=".treeview" />
+
+  <include package=".panels" />
+
+</configure>

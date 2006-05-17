@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="/++skin++cpsskins/@@/++resource++prototype.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++json.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++cpsskins.js"
+          type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css"
+        href="/++skin++cpsskins/@@/++resource++cpsskins.css" />
+
+  <style type="text/css">
+
+    h2 {
+      border-bottom: 1px solid black;
+      margin-top: 2em;
+    }
+
+    form.inputbox {
+      padding: 0.5em;
+      width: 300px;
+      border: 1px solid #666;
+      background-color: #efc;
+    }
+
+    input {
+      margin-bottom: 0.5em;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #000 #999 #999 #000;
+      width: 175px;
+      font: 1.4em arial;
+    }
+
+    div.content {
+      border: 1px solid #999;
+      background-color: #ffc;
+      padding: 1em;
+    }
+
+    div.message {
+      border: 1px solid #000;
+      background-color: #fc0;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    } 
+  </style>
+
+  <script type="text/javascript">
+
+    CPSSkins.registerWidgets({
+
+      inputbox: function(def) {
+        var widget = CPSSkins.Canvas.createNode({
+          tag: "form",
+          classes: "inputbox",
+          attributes: {"method": "post", "onsubmit": "return false"}
+        });
+
+        return new InputBox(widget, def);
+      }
+
+    });
+
+    InputBox = Class.create();
+    InputBox.prototype = Object.extend(new CPSSkins.View(), {
+
+      render: function(data) {
+        var widget = this.widget;
+        widget.innerHTML = '';
+
+        if (data.message) {
+          var message = CPSSkins.Canvas.createNode({
+            tag: "div",
+            classes: "message",
+            text: data.message
+          });
+          widget.appendChild(message);
+        }
+
+        var status = CPSSkins.Canvas.createNode({
+          tag: "input",
+          attributes: {
+            "name": "message",
+            "type": "hidden"
+          },
+          text: "Sending the message ..."
+        });
+        widget.appendChild(status);
+
+        var input = CPSSkins.Canvas.createNode({
+          tag: "input",
+          attributes: {
+            "name": "content",
+            "type": "text"
+          }
+        });
+        widget.appendChild(input);
+
+        var content = CPSSkins.Canvas.createNode({
+          tag: "div",
+          classes: "content",
+          text: data.content
+        });
+        widget.appendChild(content);
+      }
+
+    });
+
+  </script>
+
+</head>
+<body>
+
+  <h1>CPSSkins: storage adapters</h1>
+
+  <p>A <strong>storage adapter</strong> can be specified in the model
+     definition to describe how the model will access the data.
+  </p>
+  <p>There are 4 types of storages available:</p>
+  <ul>
+    <li><a href="#ram">RAM</a></li>
+    <li><a href="#local">Local</a> (stores the data in cookies)</li>
+    <li><a href="#remote">Remote</a> (accesses a remote server)</li>
+    <li><a href="#unified">Unified</a> (a combination of several storages)</li>
+  </ul>
+
+  <ins class="controller">
+  {"id": "controller",
+   "type": "form"
+  }
+  </ins>
+
+
+  <a name="ram"></a>
+  <h2>RAM storage</h2>
+
+  <p>In a <strong>RAM storage</strong> the data is entirely stored in the
+     client's memory. The server is never accessed.
+     There is no data persistence.</p>
+
+  <div id="area0">
+
+    <ins class="model">
+    {"id": "ram-data-provider",
+     "data": {
+      "message": "Please enter the answer:",
+      "content": ""
+     },
+     "storage": {
+       "type": "ram"
+       }
+     }
+    }
+    </ins>
+
+    <ins class="view">
+    {"id": "view1",
+     "widget": {
+      "type": "inputbox"
+     },
+     "model": "ram-data-provider",
+     "controllers": ["controller"]
+    }
+    </ins>
+
+  </div>
+
+  <a name="local"></a>
+  <h2>Local storage</h2>
+
+  <p>In a <strong>local storage</strong> the data is stored in a cookie
+     on the client. The server is never accessed. There is data persistence
+     as long as the cookie does not expire.</p>
+
+  <div id="area1">
+
+    <ins class="model">
+    {"id": "local-data-provider",
+     "data": {
+      "message": "Please enter the answer:",
+      "content": "No answer yet."
+     },
+     "storage": {
+       "id": "1",
+       "type": "local"
+       }
+     }
+    }
+    </ins>
+
+    <ins class="view">
+    {"id": "view2",
+     "widget": {
+      "type": "inputbox"
+     },
+     "model": "local-data-provider",
+     "controllers": ["controller"]
+    }
+    </ins>
+
+  </div>
+
+
+  <a name="remote"></a>
+  <h2>Remote storage</h2>
+  <p>In this example the data is stored <strong>on the server</strong> inside
+     the session.
+     This provides some persistence which means that the page can be reloaded
+     or the user can leave and return to the page and the current data will be
+     restored.
+  </p>
+
+  <p>An extra delay has been added when retrieving and when storing data to
+     simulate network or database latency. Calls are made
+     <strong>asynchronously</strong> which means that the browser can load the
+     page entirely before the data is retrieved.</p>
+
+  <p>The user input is <strong>validated</strong> before the data is getting
+     stored.
+  </p>
+
+  <p>Finally the view gets refreshed when the model is updated.</p>
+
+  <h3>Which of these are colors?</h3>
+  <p class="choices">
+     <cite>red</cite>
+     <cite>light</cite>
+     <cite>yellow</cite>
+     <cite>blue</cite>
+     <cite>dark</cite>
+  </p>
+
+
+  <div id="area2">
+
+    <ins class="model">
+    {"id": "remote-data-provider",
+     "data": {
+      "message": "",
+      "content": "Loading data ..."
+     },
+     "storage": {
+       "type": "remote",
+       "accessors": {
+         "get": "@@getAnswer",
+         "set": "@@setAnswer"
+       }
+     }
+    }
+    </ins>
+
+    <ins class="view">
+    {"id": "view3",
+     "widget": {
+      "type": "inputbox"
+     },
+     "model": "remote-data-provider",
+     "controllers": ["controller"]
+    }
+    </ins>
+
+  </div>
+
+  <a name="unified"></a>
+  <h2>Unified storage</h2>
+
+  <p>A unified storage is created by combining the storages of
+     different models.</p>
+
+  <p>In this example there are two storages:</p>
+  <ul>
+    <li>A RAM storage for setting the status message on the client's side.</li>
+    <li>A remote storage for saving the answer and for setting the status
+        message from the server's side.</li>
+  </ul>
+
+  <p>Both storages are combined into a unique <strong>unified storage</strong>.
+  </p>
+
+  <p>Hence the view (input box widget) still observes a unique model.
+     The status message can be written to both by the client and by the server
+     and the view will be automatically updated.
+  </p>
+
+  <div id="area3">
+    <ins class="model">
+    {"id": "message",
+     "data": {
+      "message": "Please wait ..."
+     },
+     "storage": {
+       "type": "ram"
+       }
+    }}
+    </ins>
+
+    <ins class="model">
+    {"id": "content",
+     "data": {
+      "message": "Sending the answer ...",
+      "content": "Loading data ..."
+     },
+     "storage": {
+       "type": "remote",
+       "accessors": {
+         "get": "@@getAnswer",
+         "set": "@@setAnswer"
+       }
+    }}
+    </ins>
+
+    <ins class="model">
+    {"id": "unified-data-provider",
+     "data": {
+      "message": "",
+      "content": ""
+     },
+     "storage": {
+       "type": "unified",
+       "units": ["message", "content"]
+    }}
+    </ins>
+
+    <ins class="view">
+    {"id": "view4",
+     "widget": {
+      "type": "inputbox"
+     },
+     "model": "unified-data-provider",
+     "controllers": ["controller"]
+    }
+    </ins>
+
+</body>
+</html>

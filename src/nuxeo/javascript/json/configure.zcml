@@ -1,0 +1,10 @@
+<configure
+    xmlns="http://namespaces.zope.org/browser">
+
+  <!-- json -->
+
+  <resource
+      name="json.js" file="src/json/json.js"
+  />
+
+</configure>

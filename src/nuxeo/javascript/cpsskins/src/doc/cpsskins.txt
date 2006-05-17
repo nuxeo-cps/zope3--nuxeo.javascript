@@ -1,0 +1,410 @@
+
+.. header:: Documentation
+
+=====================
+CPSSkins AJAX Toolkit
+=====================
+
+:Revision: $Id:
+
+.. contents::   :depth: 4
+
+Background
+==========
+
+The CPSSkins AJAX toolkit  was developed for the CPSSkins application to
+simplify the creation of rich user interfaces.
+
+Introduction
+============
+
+The toolkit is designed to simplify the creation of web applications, by using
+interaction mechanisms usually found in desktop applications. The toolkit
+provides a way of creating "rich widgets" and of controlling their visibility
+in a simple way.
+
+The implementation is based on the MVC design pattern ("Model-View-Controller").
+The pattern imposes to keep presentation concerns separate from the
+application's data layer and from the user interactions with the application.
+
+Model
+-----
+
+The *model* represents the application's *data* and defines how the data is
+accessed.
+
+Views
+-----
+
+Views provide a graphical representation of the *model*. A same model can be
+presented with different views. Views are associated to widgets.
+
+Widgets
+-------
+
+A widget is the HTML fragment used by the view to render the model. The view
+requests the data from the model and uses the widget to display the data in
+HTML. Different widgets behave differently. The user's interactions with the
+widget are sent to the controller as requests for action.
+
+Effects
+-------
+Widgets can be displayed using effects (fade-in, fade-out). Effects are
+defined in the view.
+
+Perspectives
+------------
+
+The notion of perspective is borrowed from the Eclipse UI. A perspective
+is a collection of views which are visible. When switching between
+perspectives, views get shown or hidden.
+
+
+Controllers
+-----------
+
+Controllers map user actions to model updates.
+
+Controllers can also select which views to display -- this is done by switching
+*perspectives* (see the Perspective Selector).
+
+
+Technical implementation
+========================
+
+Model
+-----
+
+The data displayed by the widget can be obtained directly from the HTML page
+itself using data bindings. This is done by embedding HTML comments expressed
+in the JSON format inside the page.
+
+The JSON encoded data gets converted into a javascript object when it is
+accessed for the first time. The next time the data is accessed the model
+returns the javascript object instead. This only works with identifiable
+elements (i.e. nodes that have an "id" attribute). For nodes that are not
+identifiable the data wil be stored and retrieved from HTML comments instead.
+
+
+View
+----
+
+Views are declared using XML tags. They get interpreted when the page is
+initially loaded. For each view that is declared a widget is created.
+
+It is possible to specify which *effect* will be used when the widget is
+shown or hidden.
+
+Views can be registered as *observers* of a model and be redrawn automatically
+when the data in the model is updated.
+
+Views can also register a *controller* that will handle user actions.
+
+
+Controller
+----------
+
+Controllers are written in Javascript. They consist mainly in a collection of
+action handlers: for each action taken by the user, there is an action handler.
+
+Controller classes have access to the model and to the view.
+
+
+Definitions
+===========
+
+The Model, View and Controller elements are registered in the HTML page using
+the HTML *ins* tag::
+
+  <ins class="model">
+  ...
+  </ins>
+
+  <ins class="view">
+  ...
+  </ins>
+
+  <ins class="controller">
+  ...
+  </ins>
+
+
+The definitions are written in the JSON format, either inline ::
+
+  <ins class="view">
+  {"widget": {
+     "type": "menu"
+  }}
+  </ins>
+
+or they can be inserted from a remote location::
+
+  <ins class="view" cite="/def/viewDefinition.html">
+  </ins>
+
+
+Note: the <ins> tag is part of the HTML specification.
+Semantically it denotes an editorial insertion of content.
+
+Model
+=====
+
+The model contains some initial data (used to define a schema) and a storage.
+
+* id: the model's id
+
+* data: the model's initial data and schema definition
+
+* storage: the data storage
+
+  There are different types of storages:
+
+  - RAM (the data is stored in the browser's RAM)
+
+  - local (the data is stored in a cookie)
+
+  - remote (the data is stored on a remote server)
+
+  - unified (a combination of several data storages to provide unified
+    data access)
+
+Storage adapters
+----------------
+
+* type: the storage type
+
+  - ram (used by default)
+
+  - local
+
+  - remote
+
+    - accessors: the storage accessors ("get", "set")
+
+    - refresh: the refresh rate
+
+    - access: the type of access
+
+      - sequence type: queue, stack
+
+      - sequence signature
+
+
+View
+====
+
+* widget type
+
+* template: a CTAL template (optional)
+
+* model: the model's id (optional)
+
+* show_effect: the effect to applied when the widget is shown (optional)
+
+* render_effect: the effect to applied when the widget is rendered (optional)
+
+* hide_effect: the effect to applied when the widget is hidden (optional)
+
+* controllers: a list of controllers that apply to the view (optional)
+
+* perspectives: the perspectives in which the view is visible (optional)
+
+Widgets
+-------
+
+* Panel
+
+
+* Contextual menus
+
+  - items
+
+    - type (item, submenu, separator)
+
+    - label
+
+    - icon
+
+    - action
+
+    - confirm
+
+
+* Contextual actions
+
+  (same options as the Contextual menu)
+
+
+* Tooltip
+
+
+* Custom
+
+  a custom widget, requires a 'template'.
+
+Effects
+-------
+
+* transition type
+
+   - fadein
+
+   - fadeout
+
+   - blinddown
+
+   - blindup
+
+
+* effect options:
+
+   - delay
+
+   - duration
+
+
+Controllers
+===========
+
+* form controller
+
+
+* behaviour controller
+
+  - rules
+
+
+* focus observer
+
+
+* command controller
+
+  - handlers
+
+
+* drag-and-drop
+
+  - action
+
+  - droppable
+
+  - draggable
+
+
+* perspective selector
+
+  - javascript API: switchTo
+
+
+Javascript API
+==============
+
+CPSSkins
+--------
+
+  - getModelById(id)
+
+  - getViewById(id)
+
+  - getControllerById(id)
+
+
+- plugin registration
+
+  - registerControllers(controllers)
+
+  - registerEffects(effects)
+
+  - registerStorages(storages)
+
+  - registerWidgets(widgets)
+
+
+- action handlers
+
+  - addActions(actions)
+
+  - getAction(action_id)
+
+- events
+
+  - subscribe(eventid, event)
+
+  - unsubscribe(eventid, event)
+
+  - notify(eventid, event)
+
+  - registerEventHandler(eventid, subscriber, handler)
+
+  - getEventHandler(eventid, subscriber)
+
+
+CPSSkins.Model
+--------------
+
+- low-level IO
+
+  - readData()
+
+  - writeData(data)
+
+
+- high-level IO
+
+  - getData()
+
+  - setData(data)
+
+  - updateData(data)
+
+
+- observer pattern
+
+  - addObserver(view)
+
+  - removeObserver(view)
+
+
+CPSSkins.StorageAdapter
+-----------------------
+
+  - setup()
+
+  - requestData()
+
+  - storeData(data)
+
+
+CPSSkins.View
+-------------
+
+  - setup()
+
+  - render(data)
+
+  - prepare()
+
+  - teardown()
+
+  - refresh()
+
+  - display()
+
+  - show()
+
+  - hide()
+
+
+CPSSkins.Controller
+-------------------
+
+  - setup()
+
+  - register(view)
+
+.. Emacs
+.. Local Variables:
+.. mode: rst
+.. End:
+.. Vim
+.. vim: set filetype=rst:

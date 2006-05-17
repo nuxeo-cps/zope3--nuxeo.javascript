@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>The Title</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="prototype.js" type="text/javascript"></script>
+  <script src="effects.js" type="text/javascript"></script>
+  <script src="../cps.js" type="text/javascript"></script>
+  <script src="unittest.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="test.css" type="text/css" />
+  <style type="text/css" media="screen">
+  /* <![CDATA[ */
+    td.leftBar {
+      width: 20%;
+      background-color: green;
+    }
+
+    td.leftShrinkedBar {
+      display: None;
+
+    }
+
+
+    td.centerBar {
+      width: 60%;
+      background-color: blue;
+    }
+
+    td.rightBar {
+      width: 20%;
+      background-color: yellow;
+    }
+  /* ]]> */
+  </style>
+
+</head>
+<body>
+<h1>CPS Use cases Unit Tests</h1>
+<p>
+  Test of CPS Use cases
+</p>
+
+<h3>use case 1</h3>
+
+<p>An element wich class changes, triggered by another element (here a button
+when it happens, a cookie is set to memorize the last change,
+so, the right class can be set back)</p>
+
+<table width="100%">
+  <tr style="height: 200px">
+    <td class="leftBar" id="zeBar">
+    Left
+    </td>
+    <td class="centerBar">
+    Center
+    </td>
+    <td class="rightBar">
+    Right
+    </td>
+  </tr>
+</table>
+
+<br/><br/>
+<button id="zeBouton">hide or show</button>
+<br/><br/>
+
+<div id="testlog"/>
+
+<!-- Tests follow -->
+<script type="text/javascript" charset="utf-8">
+// <![CDATA[
+
+  new Test.Unit.Runner({
+
+    setup: function() {
+      this.idle = 250;
+    },
+
+    test_hookTriggableBanner: function(){ with(this) {
+
+      /* use case: an element wich class changes,
+         triggered by another element (here a button
+         when it happens, a cookie is set to memorize the last change,
+         so, the right class can be set.
+      */
+
+      /* event obververs, that get triggered after the class change */
+      leftBar_cookie = function() { CPS.Cookies.set('lastpos', 'leftBar'); }
+      CPS.Events.observeEvent('changeClass::leftBar', 'cookie', leftBar_cookie);
+
+      leftShrinkedBar_cookie = function() { CPS.Cookies.set('lastpos',
+                                                            'leftShrinkedBar'); }
+
+      CPS.Events.observeEvent('changeClass::leftShrinkedBar', 'cookie',
+                              leftShrinkedBar_cookie);
+
+      /* trigger, that changes the class */
+      trigger = function() { CPS.Effects.changeClass('leftBar', 'leftShrinkedBar'); }
+
+      /* link the function to the button */
+      CPS.setAction('zeBouton', trigger);
+
+    }},
+
+
+
+
+  }, {"testLog": "testlog"});
+      //,"resultsURL": "http://localhost:8081/jsResults"});
+
+// ]]>
+</script>
+
+
+</body>
+</html>

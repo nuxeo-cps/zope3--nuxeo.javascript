@@ -1,0 +1,10 @@
+<configure
+    xmlns="http://namespaces.zope.org/browser">
+
+  <!-- prototype -->
+
+  <resource
+      name="prototype.js" file="src/prototype/prototype.js"
+  />
+
+</configure>

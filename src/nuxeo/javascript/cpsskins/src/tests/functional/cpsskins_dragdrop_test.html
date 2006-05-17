@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="../prototype.js" type="text/javascript"></script>
+  <script src="../json.js" type="text/javascript"></script>
+  <script src="../ctal.js" type="text/javascript"></script>
+  <script src="../../cpsskins.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="../../cpsskins.css" type="text/css" />
+
+  <style stype="text/css">
+  body {
+    font: 12px verdana, sans-serif;
+  }
+  div.dragdrop {
+    background-color: #efc;
+    border: 1px solid #090;
+    padding: 1em;
+    margin: 10px;
+  }
+  div.drop {
+    background-color: #fff;
+    border: 1px dotted #666;
+    padding: 1em;
+    margin: 10px;
+    height: 40px;
+  }
+  td.factory {
+    padding: 5px;
+    border: 1px solid #99f;
+    background-color: #eff;
+  }
+  .dragthis {
+    padding: 1em;
+    border: 1px solid #fc0;
+    background-color: #ff3;
+  }
+  .movethis {
+    padding: 1em;
+    border: 1px solid #006;
+    background-color: #fdf;
+    width: 120px;
+    margin: 10px;
+  }
+  .drophere {
+    background-color: #fff;
+    border: 1px dotted #666;
+    padding: 1em;
+    margin: 10px;
+    height: 40px;
+  }
+  .block {
+    border: 1px solid #000;
+    background-color: #ffc;
+    height: 25px;
+    padding: 3px;
+  }
+  .container {
+   background-color: #f6f3f3;
+   padding: 0.2em;
+   border: 1px solid #ccc;
+  }
+  </style>
+
+</head>
+<body id="area">
+
+  <h1>CPSSkins: drag-and-drop</h1>
+
+  <ins class="model">
+  {"id": "dummy"}
+  </ins>
+
+  <ins class="controller">
+  {"id": "dnd",
+   "type": "drag-and-drop",
+   "dragging": {
+     "source": "dragdrop",
+     "feedback": {
+       "opacity": 0.8,
+       "clone": true
+     },
+     "zoomback": {
+       "duration": 500
+     }
+   },
+   "dropping": {
+     "target": "drop",
+     "highlight": {
+       "duration": 300,
+       "action": "displayInfo"
+     }
+  }}
+  </ins>
+
+  <ins class="controller">
+  {"id": "dnd2",
+   "type": "drag-and-drop",
+   "dragging": {
+     "source": "dragthis",
+     "feedback": {
+       "opacity": 0.8,
+       "border": "#000",
+       "background": "#ff0"
+     }
+   },
+   "shifting": {
+     "element": "block",
+     "container": "container"
+   },
+   "dropping": {
+     "action": "displayInfo"
+  }}
+  </ins>
+
+  <ins class="controller">
+  {"id": "dnd3",
+   "type": "drag-and-drop",
+   "dragging": {
+     "source": "movethis",
+     "opacity": 0.6
+   },
+   "dropping": {
+     "target": "drophere",
+     "action": "displayInfo",
+     "highlight": {
+       "duration": 800
+     }
+  }}
+  </ins>
+
+  <ins class="controller">
+  {"id": "dnd4",
+   "type": "drag-and-drop",
+   "dragging": {
+     "source": "block",
+     "feedback": {
+       "opacity": 0.7,
+       "border": "#000",
+       "background": "#fd9"
+     }
+   },
+   "shifting": {
+     "element": "block",
+     "container": "container"
+   },
+   "dropping": {
+     "action": "displayInfo",
+     "zoomto": {
+       "duration": 200
+     }
+   }
+  }}
+  </ins>
+
+  <ins class="controller">
+  {"id": "dnd5",
+   "type": "drag-and-drop",
+   "dragging": {
+     "source": "factory",
+     "feedback": {
+       "opacity": 0.8
+     },
+     "zoomback": {
+       "duration": 300
+     }
+   },
+   "dropping": {
+     "target": "drophere",
+     "action": "displayInfo",
+     "highlight": {
+       "duration": 600
+     }
+   }
+  }}
+  </ins>
+
+  <div style="width: 300px; float: left">
+    <div class="dragdrop">DRAG-AND-DROP ME
+      <div class="dragthis">DRAG ME</div>
+    </div>
+    <div class="drop">DROP ZONE</div>
+
+    <ins class="view">
+    {"id": "d1",
+     "widget": {
+       "template": "draggable.html"
+     },
+     "model": "dummy",
+     "controllers": ["dnd"]
+    }
+    </ins>
+
+    <ins class="view">
+    {"id": "d2",
+     "widget": {
+        "area": "area"
+     },
+     "model": "dummy",
+     "controllers": ["dnd", "dnd2", "dnd3", "dnd4", "dnd5"]
+    }
+    </ins>
+
+  </div>
+
+  <div style="width: 200px; float: left">
+    <div class="drop">DROP ZONE</div>
+    <div class="drophere">DROP ME HERE</div>
+    <div class="movethis">MOVE ME</div>
+  </div>
+
+  <table>
+    <tr>
+      <td class="factory">A</td>
+      <td class="factory">B</td>
+      <td class="factory">C</td>
+    </tr>
+  </table>
+
+  <div style="clear:both"></div>
+
+  <table style="width: 100%">
+    <tr valign="top" style="height: 120px">
+      <td style="width: 20%" class="container">
+        <div class="block">A</div>
+      </td>
+      <td style="width: 60%" class="container">
+        <div class="block">B</div>
+      </td>
+      <td style="width: 20%" class="container">
+        <div class="block">C</div>
+      </td>
+    </tr>
+  </table>
+
+  <table style="width: 100%">
+    <tr valign="top" style="height: 120px">
+      <td style="width: 20%" class="container">
+        <div class="block">D</div>
+      </td>
+      <td style="width: 60%" class="container">
+        <div class="block">E</div>
+      </td>
+      <td style="width: 20%" class="container">
+        <div class="block">F</div>
+      </td>
+    </tr>
+  </table>
+
+  <form>
+    <p>
+      <input type="text" value="Change me" />
+    </p>
+  </form>
+
+  <script type="text/javascript">
+    function displayInfo(event) {
+    }
+
+    CPSSkins.addActions({'displayInfo': displayInfo});
+  </script>
+
+</body>
+</html>

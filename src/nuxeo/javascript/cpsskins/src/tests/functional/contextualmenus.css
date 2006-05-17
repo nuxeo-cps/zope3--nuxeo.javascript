@@ -1,0 +1,28 @@
+
+.pad {
+  margin: 1em;
+  padding: 0.8em;
+  border: 1px solid #999;
+  cursor: default;
+}
+
+#area1 {
+  background-color: #fed;
+}
+
+#area2 {
+  background-color: #fdf;
+}
+
+#area3 {
+  background-color: #def;
+}
+
+#area4 {
+  background-color: #ffe;
+}
+
+#area5 {
+  background-color: #ddd;
+}
+

@@ -1,0 +1,10 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <include file="calendar/configure.zcml"/>
+  <include file="cpsskins/configure.zcml"/>
+  <include file="ctal/configure.zcml"/>
+  <include file="json/configure.zcml"/>
+  <include file="prototype/configure.zcml"/>
+  <include file="scriptaculous/configure.zcml"/>
+
+</configure>

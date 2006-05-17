@@ -1,0 +1,12 @@
+<configure
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+  <browser:page
+      for="*"
+      layer="cpsskins.browser.skin.cpsskins"
+      name="cpsskins_storage_adapters_unit.html"
+      permission="zope.Public"
+      template="cpsskins_storage_adapters.pt"
+  />
+
+</configure>

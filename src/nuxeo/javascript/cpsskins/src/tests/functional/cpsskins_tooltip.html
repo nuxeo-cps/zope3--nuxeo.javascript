@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="../prototype.js" type="text/javascript"></script>
+  <script src="../json.js" type="text/javascript"></script>
+  <script src="../../cpsskins.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="../../cpsskins.css" type="text/css" />
+
+  <style type="text/css">
+#area1 {
+  margin: 1em;
+  padding: 2em;
+  float: left;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+}
+
+#area1 a {
+  border: 1px solid #999;
+  text-decoration: none;
+  padding: 0.1em 0.9em;
+  margin: 0 0.2em;
+  color: #000;
+  background-color: #efc;
+}
+
+#area2 {
+  margin: 1em;
+  padding: 2em;
+  float: left;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+}
+
+#area2 a {
+  border: 1px solid #999;
+  text-decoration: none;
+  padding: 0.1em 0.9em;
+  margin: 0 0.2em;
+  color: #000;
+  background-color: #ffe;
+}
+</style>
+
+</head>
+<body>
+
+  <h1>CPSSkins tooltip</h1>
+
+  <div id="area1">
+
+    <ins class="controller">
+    {"id": "show-hide-tooltip",
+     "type": "focus observer"
+    }
+    </ins>
+
+    <ins class="model">
+    {"id": "m1",
+     "data": {
+      "hint":"Click here to open the document."
+    }}
+    </ins>
+    <a class="hint1" href="#">Open</a>
+
+    <ins class="model">
+    {"id": "m2",
+     "data": {
+      "hint":"Click here to save the document."
+    }}
+    </ins>
+    <a class="hint1" href="#">Save</a>
+
+    <ins class="model">
+    {"id": "m3",
+     "data": {
+      "hint":"Click here to close the document."
+    }}
+    </ins>
+    <a class="hint1" href="#">Close</a>
+
+    <ins class="view">
+    {"id": "tooltip1",
+     "selectors": [".hint1"],
+     "widget": {
+       "type": "tooltip"
+     },
+     "controllers": ["show-hide-tooltip"],
+     "show_effect": {
+       "transition": "fadein",
+       "delay": 1000
+     },
+     "hide_effect": {
+       "transition": "fadeout",
+       "delay": 500
+    }}
+    </ins>
+
+    <p>Show delay: 1s<br/>
+       Hide delay: 500ms</p>
+  </div>
+
+  <div id="area2">
+
+    <ins class="model">
+    {"id": "m4",
+     "data": {
+      "hint":"Click here to open the file."
+    }}
+    </ins>
+    <a class="hint2" href="#">Open</a>
+
+    <ins class="model">
+    {"id": "m5",
+     "data": {
+      "hint":"Click here to save the file."
+    }}
+    </ins>
+    <a class="hint2" href="#">Save</a>
+
+    <ins class="model">
+    {"id": "m6",
+     "data": {
+      "hint":"Click here to close the file."
+    }}
+    </ins>
+    <a class="hint2" href="#">Close</a>
+
+    <ins class="view">
+    {"id": "tooltip2",
+     "selectors": [".hint2"],
+     "widget": {
+       "type": "tooltip"
+     },
+     "controllers": ["show-hide-tooltip"],
+     "show_effect": {
+       "transition": "fadein",
+       "delay": 500
+     },
+     "hide_effect": {
+       "transition": "fadeout",
+       "delay": 1000
+      }
+    }
+    </ins>
+
+    <p>Show delay: 500ms<br/>
+       Hide delay: 1s</p>
+  </div>
+
+</body>
+</html>

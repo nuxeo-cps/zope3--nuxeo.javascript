@@ -1,0 +1,5 @@
+<div class="feedbox">
+  <span ctal:content="title">TITLE</span>
+  <em ctal:content="text">TEXT</em>
+  <p class="date" ctal:content="updated">...</p>
+</div>

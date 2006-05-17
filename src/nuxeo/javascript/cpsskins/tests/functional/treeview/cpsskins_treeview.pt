@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>CPSSkins Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="/++skin++cpsskins/@@/++resource++prototype.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++ctal.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++json.js"
+          type="text/javascript"></script>
+  <script src="/++skin++cpsskins/@@/++resource++cpsskins.js"
+          type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css"
+        href="/++skin++cpsskins/@@/++resource++cpsskins.css" />
+
+
+  <style type="text/css">
+  #area0 {
+    border: 1px solid #ddd;
+    padding: 1em;
+    width: 175px;
+    margin: 1em;
+  }
+  .tree img {
+    vertical-align: middle;
+  }
+  </style>
+
+  <script type="text/javascript">
+    function openNode(event) {
+      var target = Event.element(event);
+      var nodeid = target.getAttribute("nodeid");
+
+      var data = this.model.readData();
+      data['state'][nodeid] = "open";
+      this.model.setData(data);
+    }
+
+    function closeNode(event) {
+      var target = Event.element(event);
+      var nodeid = target.getAttribute("nodeid");
+
+      var data = this.model.readData();
+      delete data['state'][nodeid];
+      this.model.setData(data);
+    }
+
+    CPSSkins.addActions(
+      {'open-node': openNode,
+       'close-node': closeNode
+      }
+    );
+  </script>
+
+</head>
+<body>
+
+  <h1>CPSSkins treeview</h1>
+
+  <p>In this example the tree view is entirely rendered on the client.
+     without reloading the page</p>
+
+  <p>The tree state is stored in a local storage using cookies. Hence the user
+     may reload the page and the tree state will be restored as long as
+     the cookie information does not expire</p>
+
+  <p>The server uses the tree state information to generate the tree data.</p>
+
+  <div id="area0">
+
+    <ins class="controller">
+    {"id": "behaviour",
+     "type": "behaviour",
+     "rules": {
+       "img.open": {
+         "click": "open-node"
+       },
+       "img.close": {
+         "click": "close-node"
+       }
+    }}
+    </ins>
+
+    <ins class="controller">
+    {"id": "show-view",
+     "type": "perspective selector",
+     "initial": "default"
+    }
+    </ins>
+
+    <ins class="model">
+    {"id": "tree-state",
+     "data": {
+       "state": {}
+     },
+     "storage": {
+       "id": 1,
+       "type": "local"
+    }}
+    </ins>
+
+    <ins class="model">
+    {"id": "tree-data",
+     "data": {
+       "items": []
+     },
+     "storage": {
+       "type": "remote",
+       "accessors": {
+         "get": "@@getTreeData",
+         "set": "@@setTreeData"
+       }
+    }}
+    </ins>
+
+    <ins class="model">
+    {"id": "tree",
+     "data": {
+       "state": {},
+       "items": []
+     },
+     "storage": {
+       "type": "unified",
+       "units": ["tree-state", "tree-data"]
+     }
+    }}
+    </ins>
+
+    <ins class="view">
+    {"id": "widget",
+     "model": "tree",
+     "perspectives": ["default"],
+     "controllers": ["behaviour", "show-view"],
+     "widget": {
+       "template": "treeview_widget.html"
+    }}
+    </ins>
+
+  </div>
+
+</body>
+</html>

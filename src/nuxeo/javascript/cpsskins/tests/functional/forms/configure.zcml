@@ -1,0 +1,42 @@
+<configure
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+  <browser:resource
+      name="form.css" file="form.css"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest" />
+
+  <browser:page
+      for="*"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      name="cpsskins_form_validation.html"
+      permission="zope.Public"
+      template="cpsskins_form_validation.pt"
+  />
+
+  <browser:page
+      for="*"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      name="sampleform.html"
+      permission="zope.Public"
+      template="sampleform.pt"
+  />
+
+  <browser:pages
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      for="*"
+      class=".browser.Views"
+      permission="zope.Public">
+
+    <browser:page
+        name="getFormData"
+        attribute="getFormData"
+    />
+
+    <browser:page
+        name="setFormData"
+        attribute="setFormData"
+    />
+
+  </browser:pages>
+
+</configure>

@@ -1,0 +1,14 @@
+
+.panel4 {
+  background-color: #fef;
+  padding: 1em;
+  border: 1px solid #ccc;
+  color: #909;
+}
+
+.panel4 h2 {
+  color: #609;
+  border-bottom: 1px solid #666;
+  font: bold 16px Verdana, Arial, sans-serif;
+}
+

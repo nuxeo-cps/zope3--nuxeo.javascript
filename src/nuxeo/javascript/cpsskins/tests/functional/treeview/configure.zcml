@@ -1,0 +1,58 @@
+<configure
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+  <browser:resource
+      name="container.png" file="images/container.png"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest" />
+
+  <browser:resource
+      name="container-open.png" file="images/container-open.png"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest" />
+
+  <browser:resource
+      name="node-link-branch.png" file="images/node-link-branch.png"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest" />
+
+  <browser:resource
+      name="node-link-last.png" file="images/node-link-last.png"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest" />
+
+  <browser:resource
+      name="folder.png" file="images/folder.png"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest" />
+
+  <browser:page
+      for="*"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      name="cpsskins_treeview.html"
+      permission="zope.Public"
+      template="cpsskins_treeview.pt"
+  />
+
+  <browser:page
+      for="*"
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      name="treeview_widget.html"
+      permission="zope.Public"
+      template="treeview_widget.pt"
+  />
+
+  <browser:pages
+      layer="cpsskins.lib.cpsskins.tests.cpsskinsTest"
+      for="*"
+      class=".browser.Views"
+      permission="zope.Public">
+
+    <browser:page
+        name="getTreeData"
+        attribute="getTreeData"
+    />
+
+    <browser:page
+        name="setTreeData"
+        attribute="setTreeData"
+    />
+
+  </browser:pages>
+
+</configure>

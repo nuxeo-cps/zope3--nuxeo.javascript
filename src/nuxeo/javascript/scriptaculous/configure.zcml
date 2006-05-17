@@ -1,0 +1,34 @@
+<configure
+    xmlns="http://namespaces.zope.org/browser">
+
+  <!-- scriptaculous -->
+
+  <resource
+      name="builder.js" file="src/scriptaculous/src/builder.js"
+  />
+
+  <resource
+      name="controls.js" file="src/scriptaculous/src/controls.js"
+  />
+
+  <resource
+      name="dragdrop.js" file="src/scriptaculous/src/dragdrop.js"
+  />
+
+  <resource
+      name="effects.js" file="src/scriptaculous/src/effects.js"
+  />
+
+  <resource
+      name="scriptaculous.js" file="src/scriptaculous/src/scriptaculous.js"
+  />
+
+  <resource
+      name="slider.js" file="src/scriptaculous/src/slider.js"
+  />
+
+  <resource
+      name="unittest.js" file="src/scriptaculous/src/unittest.js"
+  />
+
+</configure>
