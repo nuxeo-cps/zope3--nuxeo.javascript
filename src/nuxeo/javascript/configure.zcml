@@ -6,5 +6,6 @@
   <include file="json/configure.zcml"/>
   <include file="prototype/configure.zcml"/>
   <include file="scriptaculous/configure.zcml"/>
+  <include file="cps/configure.zcml"/>
 
 </configure>
