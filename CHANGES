@@ -3,7 +3,8 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
--
+- added flipClass, that allows to hide all elements that has a given class 
+  and show all elements that has another class, with a fade effect.
 Bug fixes:
 ~~~~~~~~~~
 -
