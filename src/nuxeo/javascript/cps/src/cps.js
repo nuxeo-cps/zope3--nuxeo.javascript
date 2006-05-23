@@ -144,6 +144,11 @@ CPS.Effects.showClass = function(className) {
   }
 }
 
+CPS.Effects.flipClass = function(fromClassName, toClassName) {
+  CPS.Effects.hideClass(fromClassName);
+  CPS.Effects.showClass(toClassName);
+}
+
 CPS.Effects._setCursorStyle = function(event) {
   element = event.target;
   if (navigator.appName == "Microsoft Internet Explorer")

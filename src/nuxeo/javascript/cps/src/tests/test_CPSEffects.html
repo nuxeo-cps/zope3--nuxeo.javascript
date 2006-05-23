@@ -87,6 +87,12 @@
       });
     }},
 
+    test_flipClass: function() { with(this) {
+      wait(500, function() {
+        CPS.Effects.flipClass('centerbar', 'rightbar');
+      });
+    }},
+
     test_showClass: function() { with(this) {
       CPS.Effects.showClass('leftShrinkedBar');
     }},
