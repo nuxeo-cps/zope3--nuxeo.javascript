@@ -1,4 +1,21 @@
 *******************************************
+** nuxeo.javascript V0.1.0 [R1 build 2006/05/23-21:14 by anahide]
+** SVN URL: https://svn.nuxeo.org/pub/Zope3/nuxeo.javascript/trunk Revision: 45916
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- added flipClass, that allows to hide all elements that has a given class 
+  and show all elements that has another class, with a fade effect.
+Bug fixes:
+~~~~~~~~~~
+-
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** nuxeo.javascript V0.0.1 [R1 build 2006/04/19-14:47 by tziade]
 ** SVN URL: https://svn.nuxeo.org/pub/nuxeo.javascript/trunk Revision: 35300
 Requires:
