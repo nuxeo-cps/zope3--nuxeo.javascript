@@ -1,3 +1,23 @@
+===========================================================
+Package: nuxeo.javascript 0.1.1
+===========================================================
+First release built by: gracinet at: 2006-11-16T19:14:00
+SVN Tag: https://svn.nuxeo.org/pub/Zope3/nuxeo.javascript/tags/0.1.1
+Build from: https://svn.nuxeo.org/pub/Zope3/nuxeo.javascript/trunk@50079
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- [packaging] bundleman svn property
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
 *******************************************
 ** nuxeo.javascript V0.1.0 [R1 build 2006/05/23-21:14 by anahide]
 ** SVN URL: https://svn.nuxeo.org/pub/Zope3/nuxeo.javascript/trunk Revision: 45916
